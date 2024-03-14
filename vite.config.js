@@ -6,6 +6,7 @@ import path from 'path';
 export default defineConfig(({ command }) => {
   const config = {
     plugins: [react()],
+    assetsInclude: ['**/*.glb'],
     base: '/',
   }
 
