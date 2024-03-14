@@ -1,4 +1,4 @@
-import { meta, shopify, starbucks, tesla } from "../assets/images";
+import { ecp, tsg, aht, ids } from "../assets/images";
 import {
     car,
     contact,
@@ -23,7 +23,14 @@ import {
     summiz,
     tailwindcss,
     threads,
-    typescript
+    typescript,
+    php,
+    mysql,
+    java,
+    kotlin,
+    aws,
+    elasticsearch,
+    redis
 } from "../assets/icons";
 
 export const skills = [
@@ -33,8 +40,8 @@ export const skills = [
         type: "Frontend",
     },
     {
-        imageUrl: express,
-        name: "Express",
+        imageUrl: php,
+        name: "PHP",
         type: "Backend",
     },
     {
@@ -58,29 +65,9 @@ export const skills = [
         type: "Frontend",
     },
     {
-        imageUrl: mongodb,
-        name: "MongoDB",
+        imageUrl: mysql,
+        name: "MySQL",
         type: "Database",
-    },
-    {
-        imageUrl: motion,
-        name: "Motion",
-        type: "Animation",
-    },
-    {
-        imageUrl: mui,
-        name: "Material-UI",
-        type: "Frontend",
-    },
-    {
-        imageUrl: nextjs,
-        name: "Next.js",
-        type: "Frontend",
-    },
-    {
-        imageUrl: nodejs,
-        name: "Node.js",
-        type: "Backend",
     },
     {
         imageUrl: react,
@@ -106,60 +93,83 @@ export const skills = [
         imageUrl: typescript,
         name: "TypeScript",
         type: "Frontend",
+    },
+    {
+        imageUrl: java,
+        name: "Java",
+        type: "Android",
+    },
+    {
+        imageUrl: kotlin,
+        name: "Kotlin",
+        type: "Android",
+    },
+    {
+        imageUrl: aws,
+        name: "AWS",
+        type: "Backend",
+    },
+    {
+        imageUrl: elasticsearch,
+        name: "Elasticsearch",
+        type: "Backend",
+    },
+    {
+        imageUrl: redis,
+        name: "Redis",
+        type: "Backend",
     }
 ];
 
 export const experiences = [
     {
-        title: "React.js Developer",
-        company_name: "Starbucks",
-        icon: starbucks,
+        title: "Web Developer",
+        company_name: "ECP",
+        icon: ecp,
         iconBg: "#accbe1",
-        date: "March 2020 - April 2021",
+        date: "June 2020 - November 2020",
         points: [
-            "Developing and maintaining web applications using React.js and other related technologies.",
+            "Programming websites with PHP language and create landing pages",
             "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
             "Implementing responsive design and ensuring cross-browser compatibility.",
-            "Participating in code reviews and providing constructive feedback to other developers.",
-        ],
-    },
-    {
-        title: "React Native Developer",
-        company_name: "Tesla",
-        icon: tesla,
-        iconBg: "#fbc3bc",
-        date: "Jan 2021 - Feb 2022",
-        points: [
-            "Developing and maintaining web applications using React.js and other related technologies.",
-            "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-            "Implementing responsive design and ensuring cross-browser compatibility.",
-            "Participating in code reviews and providing constructive feedback to other developers.",
         ],
     },
     {
         title: "Web Developer",
-        company_name: "Shopify",
-        icon: shopify,
-        iconBg: "#b7e4c7",
-        date: "Jan 2022 - Jan 2023",
+        company_name: "TSG-SOFT365",
+        icon: tsg,
+        iconBg: "#fbc3bc",
+        date: "November 2020 - May 2021",
         points: [
-            "Developing and maintaining web applications using React.js and other related technologies.",
+            "Developing and maintaining web applications using PHP and other related technologies.",
             "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
             "Implementing responsive design and ensuring cross-browser compatibility.",
-            "Participating in code reviews and providing constructive feedback to other developers.",
         ],
     },
     {
-        title: "Full stack Developer",
-        company_name: "Meta",
-        icon: meta,
+        title: "Web Developer and PHP Developer",
+        company_name: "AHT Tech",
+        icon: aht,
+        iconBg: "#b7e4c7",
+        date: "June 2021 - June 2022",
+        points: [
+            "Developing and maintaining web applications using PHP and other related technologies.",
+            "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
+            "Implementing responsive design and ensuring cross-browser compatibility.",
+            "App development with React Native and Android (Java/Kotlin)"
+        ],
+    },
+    {
+        title: "Fullstack Developer and Mobile Developer",
+        company_name: "IDS Vietnam",
+        icon: ids,
         iconBg: "#a2d2ff",
-        date: "Jan 2023 - Present",
+        date: "August 2022 - February 2024",
         points: [
             "Developing and maintaining web applications using React.js and other related technologies.",
             "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
             "Implementing responsive design and ensuring cross-browser compatibility.",
-            "Participating in code reviews and providing constructive feedback to other developers.",
+            "App development with React Native"
         ],
     },
 ];
@@ -173,12 +183,12 @@ export const socialLinks = [
     {
         name: 'GitHub',
         iconUrl: github,
-        link: 'https://github.com/YourGitHubUsername',
+        link: 'https://github.com/huyduc1602',
     },
     {
         name: 'LinkedIn',
         iconUrl: linkedin,
-        link: 'https://www.linkedin.com/in/YourLinkedInUsername',
+        link: 'https://www.linkedin.com/in/hoanghuyduc/',
     }
 ];
 
@@ -186,43 +196,43 @@ export const projects = [
     {
         iconUrl: pricewise,
         theme: 'btn-back-red',
-        name: 'Amazon Price Tracker',
-        description: 'Developed a web application that tracks and notifies users of price changes for products on Amazon, helping users find the best deals.',
-        link: 'https://github.com/adrianhajdin/pricewise',
+        name: 'Globar Qnavi',
+        description: 'An application that helps repair shops create and manage their employees\' work.',
+        link: 'https://apps.apple.com/vn/app/q%E3%83%8A%E3%83%93/id1470585131',
     },
     {
         iconUrl: threads,
         theme: 'btn-back-green',
-        name: 'Full Stack Threads Clone',
-        description: 'Created a full-stack replica of the popular discussion platform "Threads," enabling users to post and engage in threaded conversations.',
-        link: 'https://github.com/adrianhajdin/threads',
+        name: 'Comolu',
+        description: 'Office rental website for Frontier company in Japan market.',
+        link: 'https://comolu.jp',
     },
     {
-        iconUrl: car,
+        iconUrl: snapgram,
         theme: 'btn-back-blue',
-        name: 'Car Finding App',
-        description: 'Designed and built a mobile app for finding and comparing cars on the market, streamlining the car-buying process.',
-        link: 'https://github.com/adrianhajdin/project_next13_car_showcase',
+        name: 'Meuclip',
+        description: 'Website to watch entertainment videos of VIETTEL in the African market.',
+        link: 'http://meuclip.co.mz',
     },
     {
         iconUrl: snapgram,
         theme: 'btn-back-pink',
-        name: 'Full Stack Instagram Clone',
-        description: 'Built a complete clone of Instagram, allowing users to share photos and connect with friends in a familiar social media environment.',
-        link: 'https://github.com/adrianhajdin/social_media_app',
+        name: 'Uclip',
+        description: 'Website to watch entertainment videos of VIETTEL in Laos market.',
+        link: 'http://meuclip.co.mz',
     },
     {
         iconUrl: estate,
         theme: 'btn-back-black',
-        name: 'Real-Estate Application',
-        description: 'Developed a web application for real estate listings, facilitating property searches and connecting buyers with sellers.',
-        link: 'https://github.com/adrianhajdin/projects_realestate',
+        name: 'Foodobox',
+        description: 'App for ordering and delivering food Bulgarian market.',
+        link: 'https://apps.apple.com/vn/app/foodobox/id1580528736',
     },
     {
         iconUrl: summiz,
         theme: 'btn-back-yellow',
-        name: 'AI Summarizer Application',
-        description: 'App that leverages AI to automatically generate concise & informative summaries from lengthy text content, or blogs.',
-        link: 'https://github.com/adrianhajdin/project_ai_summarizer',
+        name: 'Vsmart',
+        description: 'Internal application for task management and processing handling problems about the Corporation\'s network System Viettel Network, used throughout 63 provinces and cities by Viettel staff.',
+        link: '#',
     }
 ];
