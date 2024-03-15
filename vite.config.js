@@ -10,9 +10,9 @@ export default defineConfig(({ command }) => {
     base: '/',
   }
 
-  if (command !== 'serve') {
-    config.base = '/hoanghuyduc/'
-  }
+  // if (command !== 'serve') {
+  //   config.base = '/hoanghuyduc/'
+  // }
 
   return config
 })
