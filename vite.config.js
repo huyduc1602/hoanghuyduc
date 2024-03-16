@@ -9,10 +9,5 @@ export default defineConfig(({ command }) => {
     assetsInclude: ['**/*.glb'],
     base: '/',
   }
-
-  // if (command !== 'serve') {
-  //   config.base = '/hoanghuyduc/'
-  // }
-
   return config
 })
