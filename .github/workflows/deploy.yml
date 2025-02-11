@@ -49,3 +49,8 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          artifact: ${{ steps.upload-artifact.outputs.artifact }}
+          path: ${{ steps.upload-artifact.outputs.path }}
