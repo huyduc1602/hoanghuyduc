@@ -1,6 +1,6 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { Footer, Navbar } from "./components";
-import { About, Contact, Home, Projects, NotFound } from "./pages";
+import { About, Contact, Home, Projects, NotFound, OAuth2Callback } from "./pages";
 import Meta from "./components/Meta";
 
 const App = () => {
@@ -14,6 +14,7 @@ const App = () => {
           <Route path='/about' element={<About />} />
           <Route path='/projects' element={<Projects />} />
           <Route path='/contact' element={<Contact />} />
+          <Route path='/oauth2callback' element={<OAuth2Callback />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />

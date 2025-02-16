@@ -5,6 +5,8 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import HomeInfo from "./HomeInfo";
 import Meta from "./Meta";
+import ProjectTabs from "./ProjectTabs";
+import ImageGoogleDrive from "./ImageGoogleDrive";
 
 export {
     CTA,
@@ -13,5 +15,7 @@ export {
     Navbar,
     Footer,
     HomeInfo,
-    Meta
+    Meta,
+    ProjectTabs,
+    ImageGoogleDrive
 }

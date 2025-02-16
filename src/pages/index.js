@@ -3,11 +3,13 @@ import About from './About'
 import Projects from "./Projects";
 import Contact from "./Contact";
 import NotFound from "./NotFound";
+import OAuth2Callback from "./OAuth2Callback";
 
 export {
     Home,
     About,
     Projects,
     Contact,
-    NotFound
+    NotFound,
+    OAuth2Callback
 }

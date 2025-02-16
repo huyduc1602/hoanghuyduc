@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -16,7 +16,9 @@ export default {
         },
         blue: {
           500: "#2b77e7"
-        }
+        },
+        primary: 'var(--primary-color)',
+        secondary: 'var(--secondary-color)',
       },
       fontFamily: {
         worksans: ["Work Sans", "sans-serif"],

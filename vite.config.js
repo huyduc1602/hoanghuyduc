@@ -14,5 +14,31 @@ export default defineConfig({
         '404': './404.html'
       }
     }
+  },
+  server: {
+    proxy: {
+      '/gdrive': {
+        target: 'https://drive.google.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/gdrive/, ''),
+        configure: (proxy, _options) => {
+          proxy.on('error', (err, _req, _res) => {
+            console.log('proxy error', err);
+          });
+          proxy.on('proxyReq', (proxyReq, req, _res) => {
+            console.log('Sending Request to the Target:', req.method, req.url);
+          });
+          proxy.on('proxyRes', (proxyRes, req, _res) => {
+            console.log('Received Response from the Target:', proxyRes.statusCode, req.url);
+          });
+        },
+      }
+    },
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    }
+  },
+  optimizeDeps: {
+    include: ['react-google-picker']
   }
 })

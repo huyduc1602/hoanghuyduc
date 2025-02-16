@@ -1,0 +1,84 @@
+/* Slider styles */
+.slider-wrapper {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    min-height: 200px; /* Adjust based on your needs */
+}
+
+.slick-slide {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.slick-slide.slick-active {
+    opacity: 1;
+}
+
+/* Hide controls by default */
+.slick-dots,
+.slick-prev,
+.slick-next {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Show controls on hover */
+.slider-wrapper:hover .slick-dots,
+.slider-wrapper:hover .slick-prev,
+.slider-wrapper:hover .slick-next {
+    opacity: 1;
+}
+
+.slider-container {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Custom arrow styles */
+.slick-prev,
+.slick-next {
+    z-index: 10;
+    width: 30px;
+    height: 30px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: rgb(37 99 235);
+}
+
+.slick-prev {
+    left: 10px;
+}
+
+.slick-next {
+    right: 10px;
+}
+
+/* Custom dots styles */
+.slick-dots {
+    bottom: 10px;
+}
+
+.slick-dots li button:before {
+    color: white;
+    opacity: 0.5;
+}
+
+.slick-dots li.slick-active button:before {
+    opacity: 1;
+}
+
+/* Image container styles */
+.slick-slide > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.slick-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { CTA } from "../components";
+import { CTA, ProjectTabs } from "../components";
 import { projects } from "../constants";
 import { arrow } from "../assets/icons";
 
@@ -18,6 +18,7 @@ const Projects = () => {
         I've embarked on numerous projects throughout the years, but these are
         the ones I hold closest to my heart. You can check out those projects with the links below and let me know if you feel like they need improvement.
       </p>
+      <ProjectTabs />
 
       <div className='flex flex-wrap my-20 gap-16'>
         {projects.map((project) => (
@@ -63,7 +64,7 @@ const Projects = () => {
       <hr className='border-slate-200' />
 
       <CTA />
-    </section>
+    </section >
   );
 };
 
