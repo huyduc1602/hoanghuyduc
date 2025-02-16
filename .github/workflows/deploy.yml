@@ -45,10 +45,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # Upload dist repository
+          name: dist
           path: './dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifact_name: ${{ steps.upload-artifact.outputs.artifact }}
+          artifact_name: dist
