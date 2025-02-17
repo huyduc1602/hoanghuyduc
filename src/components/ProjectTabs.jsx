@@ -20,8 +20,8 @@ const ProjectTabs = () => {
         return gridMap[cols] || gridMap[2];
     };
 
-    const handleColumnChange = (e) => {
-        setColumns(Number(e.target.value));
+    const handleColumnChange = (col) => {
+        setColumns(col);
     };
 
     useEffect(() => {
@@ -81,20 +81,29 @@ const ProjectTabs = () => {
                     ))}
                 </div>
                 {/* Hide on mobile, show on medium screens and up */}
-                <select
-                    className="hidden md:block py-2 px-4 rounded border border-gray-300"
-                    onChange={handleColumnChange}
-                    value={columns}
-                >
-                    <option value={1}>1 Column</option>
-                    <option value={2}>2 Columns</option>
-                    <option value={3}>3 Columns</option>
-                    <option value={4}>4 Columns</option>
-                </select>
+                <div>
+                    <div className="flex space-x-2 hidden md:block">
+                        <button className="hover:scale-110 transition-transform" onClick={() => handleColumnChange(1)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" style={{ color: columns === 1 ? 'blue' : '' }} width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M4 4h16v16H4V4m2 2v12h12V6H6z" />
+                            </svg>
+                        </button>
+                        <button className="hover:scale-110 transition-transform" onClick={() =>handleColumnChange(2)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" style={{ color: columns === 2 ? 'blue' : '' }} width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M3 3h8v8H3V3m2 2v4h4V5H5m8-2h8v8h-8V3m2 2v4h4V5h-4M3 13h8v8H3v-8m2 2v4h4v-4H5m8-2h8v8h-8v-8m2 2v4h4v-4h-4" />
+                            </svg>
+                        </button>
+                        <button className="hover:scale-110 transition-transform" onClick={() => handleColumnChange(3)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" style={{ color: columns === 3 ? 'blue' : '' }} width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M2 2h6v6H2V2m7 0h6v6H9V2m7 0h6v6h-6V2M2 9h6v6H2V9m7 0h6v6H9V9m7 0h6v6h-6V9M2 16h6v6H2v-6m7 0h6v6H9v-6m7 0h6v6h-6v-6" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
             <div className={`grid ${getGridColumns(columns)} gap-4`}>
                 {projectsData[key]?.map((project) => (
-                    <ProjectCard key={project.id} project={project} />
+                    <ProjectCard key={project.id} project={project} columns={columns} />
                 ))}
             </div>
         </div>

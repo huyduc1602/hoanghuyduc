@@ -2,7 +2,6 @@
 .slider-wrapper {
     opacity: 1;
     transition: opacity 0.3s ease;
-    min-height: 200px; /* Adjust based on your needs */
 }
 
 .slick-slide {

@@ -7,7 +7,7 @@ import ImageModal from './ImageModal';
 import { Link } from "react-router-dom";
 import { arrow } from "../assets/icons";
 
-const ProjectCard = ({ project, onUpdateImages }) => {
+const ProjectCard = ({ project, onUpdateImages, columns }) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -37,11 +37,11 @@ const ProjectCard = ({ project, onUpdateImages }) => {
 
     return (
         <>
-            <div className="max-w-sm overflow-hidden shadow-lg hover:shadow-2xl rounded-xl my-4 group">
-                <div className="relative h-48">
+            <div className={`overflow-hidden shadow-lg hover:shadow-2xl rounded-xl my-4 group ${columns == 1 ? "max-w-full h-auto" : "max-w-sm"}`}>
+                <div className="relative min-h-48">
                     <SliderWrapper settings={settings}>
                         {project.images.map((image, index) => (
-                            <div key={index} className="relative h-48">
+                            <div key={index} className={`relative ${columns == 1 ? "" : "m-h-48"}`}>
                                 <div onClick={() => handleImageClick(image, index)}>
                                     <ImageGoogleDrive
                                         imageUrl={image}
@@ -59,7 +59,7 @@ const ProjectCard = ({ project, onUpdateImages }) => {
                     </SliderWrapper>
                 </div>
                 <div className="px-6 pb-4">
-                    <div className="font-bold text-xl mb-2">{project.title}</div>
+                    <div className="font-bold text-xl my-2">{project.title}</div>
                     <p className="text-gray-700 text-base">{project.description}</p>
                     <div className="flex items-center space-x-2 mt-2">
                         <Link
