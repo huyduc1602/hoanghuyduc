@@ -82,3 +82,34 @@
     height: 100%;
     object-fit: cover;
 }
+
+/* Modal slider styles */
+.modal-slider .slick-prev,
+.modal-slider .slick-next {
+    z-index: 60;
+    width: 40px;
+    height: 40px;
+}
+
+.modal-slider .slick-prev {
+    left: 20px;
+}
+
+.modal-slider .slick-next {
+    right: 20px;
+}
+
+.modal-slider .slick-prev:before,
+.modal-slider .slick-next:before {
+    font-size: 40px;
+    color: white;
+}
+
+.modal-slider .slick-dots {
+    bottom: 20px;
+}
+
+.modal-slider .slick-dots li button:before {
+    color: white;
+    font-size: 12px;
+}

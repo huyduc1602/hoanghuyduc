@@ -1,72 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import SliderWrapper from './SliderWrapper';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import { getProjectsData } from '../utils/googleSheets';
-import ImageGoogleDrive from './ImageGoogleDrive';
-import { Link } from "react-router-dom";
-import { arrow } from "../assets/icons";
+import ProjectCard from './ProjectCard';
 
-const ProjectCard = ({ project, onUpdateImages }) => {
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        pauseOnHover: true,
-        fade: true,
-        cssEase: 'linear',
-        arrows: true,
-        lazyLoad: true, // Add lazy loading
-        swipeToSlide: true, // Better mobile experience
-        customPaging: (i) => (
-            <div className="w-3 h-3 mx-1 rounded-full bg-gray-300 hover:bg-blue-500 transition-colors duration-300" />
-        ),
-    };
-
-    return (
-        <div className="max-w-sm rounded overflow-hidden shadow-lg my-4 group">
-            <div className="relative h-48"> {/* Set fixed height */}
-                <SliderWrapper settings={settings}>
-                    {project.images.map((image, index) => (
-                        <div key={index} className="relative h-48"> {/* Match parent height */}
-                            <ImageGoogleDrive
-                                imageUrl={image}
-                                alt={`${project.title} - ${index + 1}`}
-                                className="w-full h-full object-cover"
-                                onImageSelect={(newUrl) => {
-                                    const newImages = [...project.images];
-                                    newImages[index] = newUrl;
-                                    onUpdateImages?.(project.id, newImages);
-                                }}
-                            />
-                        </div>
-                    ))}
-                </SliderWrapper>
-            </div>
-            <div className="px-6 py-4">
-                <div className="font-bold text-xl mb-2">{project.title}</div>
-                <p className="text-gray-700 text-base">{project.description}</p>
-                <div className="flex items-center space-x-2 mt-2"><Link
-                    to={project.link}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='font-semibold text-blue-600'
-                >
-                    Live Link
-                </Link>
-                    <img
-                        src={arrow}
-                        alt='arrow'
-                        className='w-4 h-4 object-contain'
-                    /></div>
-            </div>
-        </div>
-    );
-};
 
 const ProjectTabs = () => {
     const [key, setKey] = useState('web');
@@ -123,7 +58,7 @@ const ProjectTabs = () => {
                     {tabs.map((tab) => (
                         <button
                             key={tab.id}
-                            className={`py-2 px-4 rounded ${key === tab.key ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+                            className={`${key === tab.key ? ' text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700' : 'bg-gray-200'} hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2`}
                             onClick={() => setKey(tab.key)}
                         >
                             {tab.label}
