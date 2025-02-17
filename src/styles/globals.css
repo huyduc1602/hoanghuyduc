@@ -113,3 +113,13 @@
     color: white;
     font-size: 12px;
 }
+
+/* Shimmer effect custom styles */
+.shimmer-card {
+    border-radius: 0.75rem !important;
+    overflow: hidden;
+}
+
+.shimmer-gallery {
+    gap: 1rem;
+}

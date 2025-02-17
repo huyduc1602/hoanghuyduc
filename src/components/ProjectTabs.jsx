@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getProjectsData } from '../utils/googleSheets';
 import ProjectCard from './ProjectCard';
-
+import { ShimmerSimpleGallery } from "react-shimmer-effects";
 
 const ProjectTabs = () => {
     const [key, setKey] = useState('web');
@@ -48,7 +48,22 @@ const ProjectTabs = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="container mx-auto px-4">
+                <div className="flex justify-between items-center my-4">
+                    <div className="flex space-x-4">
+                        {[1, 2].map((index) => (
+                            <div
+                                key={index}
+                                className="h-10 w-24 bg-gray-200 rounded-lg animate-pulse"
+                            />
+                        ))}
+                    </div>
+                    <div className="hidden md:block h-10 w-32 bg-gray-200 rounded animate-pulse" />
+                </div>
+                <ShimmerSimpleGallery card imageHeight={200} caption row={2} col={2} />
+            </div>
+        );
     }
 
     return (
