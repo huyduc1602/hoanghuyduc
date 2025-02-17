@@ -236,3 +236,42 @@ export const projects = [
         link: '#',
     }
 ];
+
+export const projectFeatures = [
+    {
+        iconUrl: pricewise,
+        theme: 'btn-back-red',
+        title: "High Security Features",
+        description: "The software project is designed with advanced security measures to ensure user data safety and prevent external threats."
+    },
+    {
+        iconUrl: threads,
+        theme: 'btn-back-green',
+        title: "User -Friendly Interface",
+        description: "The interface is optimized for ease of use, allowing users to quickly familiarize themselves and operate efficiently without difficulties."
+    },
+    {
+        iconUrl: snapgram,
+        theme: 'btn-back-yellow',
+        title: "Cross-Platform Integration",
+        description: "The software supports operation on various platforms, including web, mobile, and desktop, providing flexibility for users."
+    },
+    {
+        iconUrl: car,
+        theme: 'btn-back-blue',
+        title: "Flexible Scalability",
+        description: "The project allows for easy feature expansion, enabling businesses to grow and adjust according to needs without replacing the entire system."
+    },
+    {
+        iconUrl: estate,
+        theme: 'btn-back-orange',
+        title: "24/7 Customer Support",
+        description: "The customer support team is available 24/7, ensuring users receive timely assistance when encountering issues."
+    },
+    {
+        iconUrl: summiz,
+        theme: 'btn-back-pink',
+        title: "Data Reporting and Analysis",
+        description: "The software provides powerful reporting and analysis tools, helping businesses monitor performance and make data-driven decisions."
+    }
+];
