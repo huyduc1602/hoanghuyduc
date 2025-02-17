@@ -68,8 +68,8 @@ const ProjectTabs = () => {
 
     return (
         <div>
-            <div className="flex justify-between items-center my-4">
-                <div className="flex space-x-4">
+            <div className="flex justify-between items-center my-4 flex-wrap">
+                <div className="flex flex-wrap space-lx-0 sm:space-x-4">
                     {tabs.map((tab) => (
                         <button
                             key={tab.id}
@@ -81,14 +81,14 @@ const ProjectTabs = () => {
                     ))}
                 </div>
                 {/* Hide on mobile, show on medium screens and up */}
-                <div>
-                    <div className="flex space-x-2 hidden md:block">
+                <div className="hidden md:block">
+                    <div className="flex flex-wrap space-x-2">
                         <button className="hover:scale-110 transition-transform" onClick={() => handleColumnChange(1)}>
                             <svg xmlns="http://www.w3.org/2000/svg" style={{ color: columns === 1 ? 'blue' : '' }} width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M4 4h16v16H4V4m2 2v12h12V6H6z" />
                             </svg>
                         </button>
-                        <button className="hover:scale-110 transition-transform" onClick={() =>handleColumnChange(2)}>
+                        <button className="hover:scale-110 transition-transform" onClick={() => handleColumnChange(2)}>
                             <svg xmlns="http://www.w3.org/2000/svg" style={{ color: columns === 2 ? 'blue' : '' }} width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M3 3h8v8H3V3m2 2v4h4V5H5m8-2h8v8h-8V3m2 2v4h4V5h-4M3 13h8v8H3v-8m2 2v4h4v-4H5m8-2h8v8h-8v-8m2 2v4h4v-4h-4" />
                             </svg>
