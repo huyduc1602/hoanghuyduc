@@ -80,6 +80,13 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    max-height: 100%;
+    transition: transform 0.3s ease;
+}
+
+/* Optional: Add hover effect */
+.group:hover .slick-slide img {
+    transform: scale(1.05);
 }
 
 /* Modal slider styles */

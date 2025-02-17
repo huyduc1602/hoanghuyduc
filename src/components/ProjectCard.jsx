@@ -35,14 +35,27 @@ const ProjectCard = ({ project, onUpdateImages, columns }) => {
         setSelectedIndex(index);
     };
 
+    const getImageContainerClass = (columns) => {
+        if (columns === 1) {
+            return "h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]";
+        }
+        return "h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px]";
+    };
+
     return (
         <>
-            <div className={`overflow-hidden shadow-lg hover:shadow-2xl rounded-xl my-4 group ${columns == 1 ? "max-w-full h-auto" : "max-w-sm"}`}>
-                <div className="relative min-h-48">
+            <div className={`overflow-hidden shadow-lg hover:shadow-2xl rounded-xl my-4 group ${columns == 1 ? "max-w-full" : "max-w-sm"}`}>
+                <div className="relative bg-gray-100">
                     <SliderWrapper settings={settings}>
                         {project.images.map((image, index) => (
-                            <div key={index} className={`relative ${columns == 1 ? "" : "m-h-48"}`}>
-                                <div onClick={() => handleImageClick(image, index)}>
+                            <div 
+                                key={index} 
+                                className={`relative ${getImageContainerClass(columns)}`}
+                            >
+                                <div 
+                                    onClick={() => handleImageClick(image, index)} 
+                                    className="absolute inset-0 flex items-center justify-center"
+                                >
                                     <ImageGoogleDrive
                                         imageUrl={image}
                                         alt={`${project.title} - ${index + 1}`}
