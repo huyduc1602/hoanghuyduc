@@ -1,9 +1,16 @@
 import { CTA, ProjectTabs, ProjectFeatures } from "../components";
 import { projects } from "../constants";
+import { Meta } from "../components";
 
 const Projects = () => {
   return (
     <section className='max-container'>
+      <Meta
+        title="Projects"
+        description="Explore my portfolio of web development projects and applications"
+        keywords="projects, portfolio, web applications, react projects, full stack projects"
+        image="https://hoanghuyduc.com/projects-preview.png"
+      />
       <h1 className='head-text'>
         My{" "}
         <span className='blue-gradient_text drop-shadow font-semibold'>

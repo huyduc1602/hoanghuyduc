@@ -3,7 +3,7 @@ import {
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
 
-import { CTA } from "../components";
+import { CTA, Meta } from "../components";
 import { experiences, skills } from "../constants";
 
 import "react-vertical-timeline-component/style.min.css";
@@ -11,6 +11,12 @@ import "react-vertical-timeline-component/style.min.css";
 const About = () => {
   return (
     <section className='max-container'>
+      <Meta
+        title="About"
+        description="Learn more about Hoang Huy Duc - Experience, skills, and background in web development"
+        keywords="about, experience, skills, education, web development"
+        image="https://hoanghuyduc.com/about-preview.png"
+      />
       <h1 className='head-text'>
         Hello, I'm{" "}
         <span className='blue-gradient_text font-semibold drop-shadow'>
