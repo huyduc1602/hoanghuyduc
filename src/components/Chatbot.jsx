@@ -14,11 +14,17 @@ import {
     Zoom,
     IconButton,
     Badge,
-    CircularProgress
+    CircularProgress,
+    Chip,
+    Stack,
+    Tooltip,
+    Collapse
 } from "@mui/material";
 import ChatIcon from '@mui/icons-material/Chat';
 import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import { websiteQA } from '../data/chatbotQA';
 
 const Chatbot = () => {
     // Initialize hooks
@@ -28,6 +34,7 @@ const Chatbot = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [hasNewMessage, setHasNewMessage] = useState(false);
     const [hasUnreadMessages, setHasUnreadMessages] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState(null);
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
@@ -48,14 +55,78 @@ const Chatbot = () => {
         }
     }, [messages, isOpen]);
 
-    const sendMessage = async () => {
-        if (!input.trim()) return;
+    // Add this function to handle suggestion clicks
+    const handleSuggestionClick = (question) => {
+        setInput(question);
+        sendMessage(question);
+    };
 
-        const userMessage = input.trim();
+    // Add this component to render suggestions
+    const renderSuggestions = () => {
+        if (messages.length > 0) return null; // Hide after conversation starts
+
+        return (
+            <Box sx={{ p: 2 }}>
+                <Typography variant="subtitle2" color="textSecondary" sx={{ mb: 1 }}>
+                    Suggested Questions
+                </Typography>
+                <Stack spacing={1}>
+                    {Object.entries(websiteQA).map(([category, items]) => (
+                        <Box key={category}>
+                            <Chip
+                                label={category}
+                                color={selectedCategory === category ? "primary" : "default"}
+                                onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
+                                sx={{ mb: 1 }}
+                            />
+                            <Collapse in={selectedCategory === category}>
+                                <Stack spacing={0.5} sx={{ pl: 2 }}>
+                                    {items.map((item, index) => (
+                                        <Button
+                                            key={index}
+                                            variant="text"
+                                            size="small"
+                                            onClick={() => handleSuggestionClick(item.q)}
+                                            sx={{
+                                                justifyContent: 'flex-start',
+                                                textAlign: 'left',
+                                                textTransform: 'none'
+                                            }}
+                                        >
+                                            {item.q}
+                                        </Button>
+                                    ))}
+                                </Stack>
+                            </Collapse>
+                        </Box>
+                    ))}
+                </Stack>
+            </Box>
+        );
+    };
+
+    const sendMessage = async (messageText = input) => {
+        if (!messageText.trim()) return;
+
+        const userMessage = messageText.trim();
         const newMessages = [...messages, { role: "user", content: userMessage }];
         setMessages(newMessages);
         setInput("");
         setIsLoading(true);
+
+        // Check for predefined answers first
+        const predefinedAnswer = Object.values(websiteQA)
+            .flat()
+            .find(qa => qa.q.toLowerCase() === userMessage.toLowerCase())?.a;
+
+        if (predefinedAnswer) {
+            setMessages(prev => [...prev, {
+                role: "assistant",
+                content: predefinedAnswer
+            }]);
+            setIsLoading(false);
+            return;
+        }
 
         try {
             const response = await axios({
@@ -149,6 +220,12 @@ const Chatbot = () => {
             e.preventDefault();
             sendMessage();
         }
+    };
+
+    const handleNewChat = () => {
+        setMessages([]);
+        setSelectedCategory(null);
+        setInput("");
     };
 
     const renderMessages = () => (
@@ -265,9 +342,25 @@ const Chatbot = () => {
                         alignItems: 'center',
                         justifyContent: 'space-between'
                     }}>
-                        <Typography variant="h6">
-                            🤖 AI Chatbot
-                        </Typography>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                            <Typography variant="h6">
+                                🤖 AI Chatbot
+                            </Typography>
+                            <Tooltip title="New Chat">
+                                <IconButton
+                                    onClick={handleNewChat}
+                                    size="small"
+                                    sx={{
+                                        color: 'white',
+                                        '&:hover': {
+                                            backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                                        }
+                                    }}
+                                >
+                                    <RefreshIcon fontSize="small" />
+                                </IconButton>
+                            </Tooltip>
+                        </Box>
                         <IconButton
                             onClick={() => setIsOpen(false)}
                             sx={{ color: 'white' }}
@@ -284,6 +377,7 @@ const Chatbot = () => {
                         bgcolor: '#f5f5f5',
                         scrollBehavior: 'smooth'
                     }}>
+                        {renderSuggestions()}
                         {renderMessages()}
                     </Box>
 
