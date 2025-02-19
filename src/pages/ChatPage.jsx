@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
-import { Chatbot, Meta, Navbar, Footer } from '../components';
+import { Chatbot, Meta } from '../components';
 
 const ChatPage = () => {
-    // Load messages when component mounts
     useEffect(() => {
         const savedMessages = localStorage.getItem('chatMessages');
         if (!savedMessages) {
-            // If no saved messages, initialize with empty array
             localStorage.setItem('chatMessages', JSON.stringify([]));
         }
     }, []);
@@ -26,8 +24,8 @@ const ChatPage = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     bgcolor: '#f5f5f5',
-                    pt: '64px',
-                    pb: '60px',
+                    pt: '64px', // Header height
+                    pb: '60px', // Footer height
                 }}
             >
                 <Box
@@ -35,11 +33,15 @@ const ChatPage = () => {
                         flex: 1,
                         width: '100%',
                         maxWidth: '1200px',
-                        height: 'calc(100vh - 124px)',
+                        minHeight: {
+                            xs: 'calc(100vh - 124px)', // Mobile: full height minus header & footer
+                            sm: 'calc(100vh - 164px)', // Tablet and up: add some padding
+                        },
                         margin: '0 auto',
                         p: { xs: 2, md: 4 },
                         '& > *': {
                             height: '100%',
+                            minHeight: 'inherit', // Inherit parent's minHeight
                             display: 'flex',
                             flexDirection: 'column',
                         }
