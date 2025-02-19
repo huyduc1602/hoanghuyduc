@@ -43,7 +43,7 @@ export default defineConfig(({ mode }) => {
           },
         },
         '/api': {
-          target: 'http://localhost:3000',
+          target: env.VITE_API_URL || 'http://localhost:3000', // Fallback for development
           changeOrigin: true,
           secure: false,
         }
