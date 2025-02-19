@@ -2,18 +2,16 @@ import { Helmet } from 'react-helmet-async';
 import favicon from '../assets/favicon.ico?url';
 import { siteConfig } from '../config';
 
-const DEFAULT_PREVIEW = `${siteConfig.url}${siteConfig.ogImage}`;
-
 const Meta = ({ title, description, keywords, image }) => {
-    // Ensure image URL is absolute
-    const getAbsoluteUrl = (url) => {
-        if (!url) return DEFAULT_PREVIEW;
-        if (url.startsWith('http')) return url;
-        return `${siteConfig.url}${url.startsWith('/') ? '' : '/'}${url}`;
+    // Get absolute URL for OG image
+    const getOgImageUrl = () => {
+        if (!image) return `${siteConfig.url}${siteConfig.ogImage}`;
+        if (image.startsWith('http')) return image;
+        return `${siteConfig.url}${image.startsWith('/') ? '' : '/'}${image}`;
     };
 
-    const ogImage = getAbsoluteUrl(image);
     const pageTitle = title ? `${title} - ${siteConfig.name}` : `${siteConfig.name} - Portfolio`;
+    const ogImageUrl = getOgImageUrl();
 
     return (
         <Helmet>
@@ -26,8 +24,8 @@ const Meta = ({ title, description, keywords, image }) => {
             <meta property="og:description" content={description} />
             <meta property="og:type" content="website" />
             <meta property="og:url" content={typeof window !== 'undefined' ? window.location.href : siteConfig.url} />
-            <meta property="og:image" content={ogImage} />
-            <meta property="og:image:secure_url" content={ogImage} />
+            <meta property="og:image" content={ogImageUrl} />
+            <meta property="og:image:secure_url" content={ogImageUrl} />
             <meta property="og:image:type" content="image/png" />
             <meta property="og:image:width" content="1200" />
             <meta property="og:image:height" content="630" />
@@ -38,7 +36,7 @@ const Meta = ({ title, description, keywords, image }) => {
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:title" content={pageTitle} />
             <meta name="twitter:description" content={description} />
-            <meta name="twitter:image" content={ogImage} />
+            <meta name="twitter:image" content={ogImageUrl} />
             <meta name="twitter:image:alt" content={title || siteConfig.name} />
 
             {/* Basic meta tags */}
