@@ -39,6 +39,25 @@ jobs:
       
       - name: Copy env file
         run: cp .env.example .env
+
+      - name: Create env file
+        run: |
+          touch .env
+            echo "VITE_APP_EMAILJS_SERVICE_ID=${{ secrets.VITE_APP_EMAILJS_SERVICE_ID }}" >> .env
+            echo "VITE_APP_EMAILJS_TEMPLATE_ID=${{ secrets.VITE_APP_EMAILJS_TEMPLATE_ID }}" >> .env
+            echo "VITE_APP_EMAILJS_PUBLIC_KEY=${{ secrets.VITE_APP_EMAILJS_PUBLIC_KEY }}" >> .env
+            echo "VITE_SPREADSHEET_ID=${{ secrets.VITE_SPREADSHEET_ID }}" >> .env
+            echo "VITE_SHEET_ID=${{ secrets.VITE_SHEET_ID }}" >> .env
+            echo "VITE_API_KEY=${{ secrets.VITE_API_KEY }}" >> .env
+            echo "VITE_GOOGLE_CLIENT_ID=${{ secrets.VITE_GOOGLE_CLIENT_ID }}" >> .env
+            echo "VITE_GOOGLE_API_KEY=${{ secrets.VITE_GOOGLE_API_KEY }}" >> .env
+            echo "VITE_GOOGLE_APP_ID=${{ secrets.VITE_GOOGLE_APP_ID }}" >> .env
+            echo "VITE_REDIRECT_URI=${{ secrets.VITE_REDIRECT_URI }}" >> .env
+            echo "VITE_FACEBOOK_APP_ID=${{ secrets.VITE_FACEBOOK_APP_ID }}" >> .env
+            echo "VITE_SITE_URL=${{ secrets.VITE_SITE_URL }}" >> .env
+            echo "VITE_HUGGINGFACE_API_KEY=${{ secrets.VITE_HUGGINGFACE_API_KEY }}" >> .env
+            echo "VITE_OPENAI_API_KEY=${{ secrets.VITE_OPENAI_API_KEY }}" >> .env
+            echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> .env
       
       - name: Install dependencies
         run: npm install
