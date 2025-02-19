@@ -24,9 +24,10 @@ import ChatIcon from '@mui/icons-material/Chat';
 import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { websiteQA } from '../data/chatbotQA';
 
-const Chatbot = () => {
+const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = false }) => {
     // Initialize hooks
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
@@ -35,6 +36,7 @@ const Chatbot = () => {
     const [hasNewMessage, setHasNewMessage] = useState(false);
     const [hasUnreadMessages, setHasUnreadMessages] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [popupWindow, setPopupWindow] = useState(null); // Add state for popup window
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
@@ -228,6 +230,22 @@ const Chatbot = () => {
         setInput("");
     };
 
+    // Add function to handle opening in new window
+    const handleOpenInNewWindow = () => {
+        const width = 400;
+        const height = 600;
+        const left = window.screen.width / 2 - width / 2;
+        const top = window.screen.height / 2 - height / 2;
+
+        const popup = window.open(
+            '/chat',
+            'ChatWindow',
+            `width=${width},height=${height},left=${left},top=${top}`
+        );
+        setPopupWindow(popup);
+        setIsOpen(false);
+    };
+
     const renderMessages = () => (
         <List>
             {messages.map((msg, index) => (
@@ -281,6 +299,116 @@ const Chatbot = () => {
         </List>
     );
 
+    // Return null if hideFloating is true and not standalone
+    if (hideFloating && !isStandalone) {
+        return null;
+    }
+
+    if (isStandalone) {
+        return (
+            <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%',
+                width: '100%',
+                overflow: 'hidden',
+                ...(fullScreen ? {
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    zIndex: 1200
+                } : {})
+            }}>
+                {/* Header */}
+                <Box sx={{
+                    p: 2,
+                    bgcolor: 'primary.main',
+                    color: 'white',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+                }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Typography variant="h6">
+                            🤖 AI Chat Assistant
+                        </Typography>
+                        <Tooltip title="New Chat">
+                            <IconButton
+                                onClick={handleNewChat}
+                                size="small"
+                                sx={{
+                                    color: 'white',
+                                    '&:hover': {
+                                        backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                                    }
+                                }}
+                            >
+                                <RefreshIcon fontSize="small" />
+                            </IconButton>
+                        </Tooltip>
+                    </Box>
+                </Box>
+
+                {/* Chat Content */}
+                <Box sx={{
+                    flex: 1,
+                    overflowY: "auto",
+                    p: 2,
+                    bgcolor: '#f5f5f5'
+                }}>
+                    {messages.length === 0 && renderSuggestions()}
+                    {renderMessages()}
+                </Box>
+
+                {/* Input Area */}
+                <Box sx={{
+                    p: 2,
+                    bgcolor: 'white',
+                    borderTop: 1,
+                    borderColor: 'divider'
+                }}>
+                    <Box sx={{
+                        display: "flex",
+                        gap: 1,
+                        maxWidth: fullScreen ? '800px' : '100%',
+                        margin: '0 auto'
+                    }}>
+                        <TextField
+                            fullWidth
+                            variant="outlined"
+                            placeholder="Type a message..."
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            onKeyPress={handleKeyPress}
+                            disabled={isLoading}
+                            size="small"
+                            sx={{
+                                '& .MuiOutlinedInput-root': {
+                                    borderRadius: 3
+                                }
+                            }}
+                        />
+                        <IconButton
+                            color="primary"
+                            onClick={() => sendMessage()}
+                            disabled={isLoading || !input.trim()}
+                            sx={{ borderRadius: '50%' }}
+                        >
+                            {isLoading ?
+                                <CircularProgress size={24} /> :
+                                <SendIcon />
+                            }
+                        </IconButton>
+                    </Box>
+                </Box>
+            </Box>
+        );
+    }
+
+    // Return original floating chat UI
     return (
         <Box sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: 1000 }}>
             <Zoom in={!isOpen}>
@@ -358,6 +486,20 @@ const Chatbot = () => {
                                     }}
                                 >
                                     <RefreshIcon fontSize="small" />
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Open in New Window">
+                                <IconButton
+                                    onClick={handleOpenInNewWindow}
+                                    size="small"
+                                    sx={{
+                                        color: 'white',
+                                        '&:hover': {
+                                            backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                                        }
+                                    }}
+                                >
+                                    <OpenInNewIcon fontSize="small" />
                                 </IconButton>
                             </Tooltip>
                         </Box>

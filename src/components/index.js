@@ -8,8 +8,8 @@ import ProjectTabs from "./ProjectTabs";
 import ProjectFeatures from "./ProjectFeatures";
 import ImageGoogleDrive from "./ImageGoogleDrive";
 import Chatbot from './Chatbot';
-
-export { default as Meta } from './Meta';
+import Meta from './Meta';
+import Layout from './Layout';
 
 export {
     CTA,
@@ -21,5 +21,7 @@ export {
     ProjectTabs,
     ProjectFeatures,
     ImageGoogleDrive,
-    Chatbot
+    Chatbot,
+    Meta,
+    Layout
 }

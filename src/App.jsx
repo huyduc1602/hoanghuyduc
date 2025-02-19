@@ -1,15 +1,15 @@
 import { HelmetProvider } from 'react-helmet-async';
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { Footer, Navbar, Meta, Chatbot } from "./components";
+import { Meta, Layout } from "./components";
 import { About, Contact, Home, Projects, NotFound, OAuth2Callback, TermsOfService } from "./pages";
+import ChatPage from './pages/ChatPage';
 
 const App = () => {
   return (
     <HelmetProvider>
       <Router>
         <Meta />
-        <main className='bg-slate-300/20'>
-          <Navbar />
+        <Layout>
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/about' element={<About />} />
@@ -17,12 +17,11 @@ const App = () => {
             <Route path='/contact' element={<Contact />} />
             <Route path='/oauth2callback' element={<OAuth2Callback />} />
             <Route path='/terms-of-service' element={<TermsOfService />} />
+            <Route path='/chat' element={<ChatPage />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
-          <Footer />
-        </main>
+        </Layout>
       </Router>
-      <Chatbot />
     </HelmetProvider>
   );
 };
