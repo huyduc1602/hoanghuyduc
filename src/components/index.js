@@ -7,6 +7,7 @@ import HomeInfo from "./HomeInfo";
 import ProjectTabs from "./ProjectTabs";
 import ProjectFeatures from "./ProjectFeatures";
 import ImageGoogleDrive from "./ImageGoogleDrive";
+import Chatbot from './Chatbot';
 
 export { default as Meta } from './Meta';
 
@@ -19,5 +20,6 @@ export {
     HomeInfo,
     ProjectTabs,
     ProjectFeatures,
-    ImageGoogleDrive
+    ImageGoogleDrive,
+    Chatbot
 }

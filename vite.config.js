@@ -18,7 +18,9 @@ export default defineConfig(({ mode }) => {
           '404': './404.html'
         },
         output: {
-          manualChunks: undefined,
+          manualChunks: {
+            vendor: ['react', 'react-dom', 'openai']
+          },
         },
       }
     },
@@ -39,6 +41,11 @@ export default defineConfig(({ mode }) => {
               console.log('Received Response from the Target:', proxyRes.statusCode, req.url);
             });
           },
+        },
+        '/api': {
+          target: 'http://localhost:3000',
+          changeOrigin: true,
+          secure: false,
         }
       },
       headers: {
@@ -46,7 +53,7 @@ export default defineConfig(({ mode }) => {
       }
     },
     optimizeDeps: {
-      include: ['react-google-picker']
+      include: ['react-google-picker', 'react', 'react-dom', 'openai']
     },
     define: {
       __FB_APP_ID__: JSON.stringify(env.VITE_FACEBOOK_APP_ID),
