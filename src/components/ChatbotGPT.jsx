@@ -50,54 +50,27 @@ const Chatbot = () => {
         setIsLoading(true);
 
         try {
-            const response = await axios({
-                method: 'post',
-                url: 'https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1',
-                headers: {
-                    'Authorization': `Bearer ${import.meta.env.VITE_HUGGINGFACE_API_KEY}`,
-                    'Content-Type': 'application/json'
-                },
-                data: {
-                    inputs: `<s>[INST] ${userMessage} [/INST]`,
-                    parameters: {
-                        max_new_tokens: 1024,
-                        temperature: 0.7,
-                        top_p: 0.9,
-                        do_sample: true,
-                        return_full_text: false
-                    }
-                }
+            const response = await axios.post('/api/chat', {
+                messages: [
+                    {
+                        role: "system",
+                        content: "You are a helpful assistant who can communicate in multiple languages. Always respond in the same language as the user's message."
+                    },
+                    ...newMessages
+                ]
             });
 
-            if (response.data && Array.isArray(response.data)) {
-                const botResponse = response.data[0]?.generated_text
-                    ?.replace(/^<s>\[INST\].*\[\/INST\]\s*/g, '') // Remove instruction prefix
-                    ?.trim();
-
-                if (botResponse) {
-                    setMessages(prev => [...prev, {
-                        role: "assistant",
-                        content: botResponse
-                    }]);
-                } else {
-                    throw new Error('No response generated');
-                }
-            } else if (response.data?.error?.includes('loading')) {
-                // Handle model loading state
-                const loadingMessage = detectLanguageAndGetErrorMessage(userMessage, 'loading');
+            if (response.data?.choices?.[0]?.message?.content) {
                 setMessages(prev => [...prev, {
                     role: "assistant",
-                    content: loadingMessage
+                    content: response.data.choices[0].message.content
                 }]);
-
-                // Retry after a delay
-                setTimeout(sendMessage, 20000);
             } else {
                 throw new Error('Invalid response format');
             }
         } catch (error) {
             console.error("API Error:", error.response?.data || error);
-            const errorMessage = detectLanguageAndGetErrorMessage(userMessage, 'error');
+            const errorMessage = detectLanguageAndGetErrorMessage(userMessage);
             setMessages(prev => [...prev, {
                 role: "assistant",
                 content: errorMessage
@@ -108,32 +81,13 @@ const Chatbot = () => {
     };
 
     // Helper function to detect language and return appropriate error message
-    const detectLanguageAndGetErrorMessage = (text, type = 'error') => {
-        const messages = {
-            loading: {
-                zh: "模型正在加载中，请稍候（约20秒）...",
-                ja: "モデルを読み込んでいます。少々お待ちください（約20秒）...",
-                th: "กำลังโหลดโมเดล กรุณารอสักครู่ (ประมาณ 20 วินาที)...",
-                vi: "Đang tải mô hình, vui lòng đợi (khoảng 20 giây)...",
-                en: "Loading the model, please wait (about 20 seconds)..."
-            },
-            error: {
-                zh: "抱歉，系统暂时出现问题。请稍后再试。",
-                ja: "申し訳ありません。システムに問題が発生しました。",
-                th: "ขออภัย ระบบมีปัญหา โปรดลองอีกครั้งในภายหลัง",
-                vi: "Xin lỗi, hệ thống đang gặp sự cố. Vui lòng thử lại sau.",
-                en: "Sorry, the system is experiencing issues. Please try again later."
-            }
-        };
-
-        // Detect language
-        const lang = /[\u4e00-\u9fff]/.test(text) ? 'zh'
-            : /[\u3040-\u30ff]/.test(text) ? 'ja'
-                : /[\u0E00-\u0E7F]/.test(text) ? 'th'
-                    : /[ạàáảãâậầấẩẫăặằắẳẵèéẻẽêệềếểễìíỉĩòóỏõôộồốổỗơớờởỡùúủũưựừứửữỳýỷỹđ]/.test(text) ? 'vi'
-                        : 'en';
-
-        return messages[type][lang];
+    const detectLanguageAndGetErrorMessage = (text) => {
+        if (/[\u4e00-\u9fff]/.test(text)) return "抱歉，系统暂时出现问题。请稍后再试。";
+        if (/[\u3040-\u30ff]/.test(text)) return "申し訳ありません。システムに問題が発生しました。";
+        if (/[\u0E00-\u0E7F]/.test(text)) return "ขออภัย ระบบมีปัญหา โปรดลองอีกครั้งในภายหลัง";
+        if (/[ạàáảãâậầấẩẫăặằắẳẵèéẻẽêệềếểễìíỉĩòóỏõôộồốổỗơớờởỡùúủũưựừứửữỳýỷỹđ]/.test(text))
+            return "Xin lỗi, hệ thống đang gặp sự cố. Vui lòng thử lại sau.";
+        return "Sorry, the system is experiencing issues. Please try again later.";
     };
 
     const handleKeyPress = (e) => {
