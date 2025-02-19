@@ -25,6 +25,7 @@ const Chatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [hasNewMessage, setHasNewMessage] = useState(false);
+    const [hasUnreadMessages, setHasUnreadMessages] = useState(false);
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
@@ -35,8 +36,13 @@ const Chatbot = () => {
         if (isOpen) {
             scrollToBottom();
             setHasNewMessage(false);
+            setHasUnreadMessages(false);
         } else if (messages.length > 0) {
             setHasNewMessage(true);
+            const lastMessage = messages[messages.length - 1];
+            if (lastMessage.role === 'assistant') {
+                setHasUnreadMessages(true);
+            }
         }
     }, [messages, isOpen]);
 
@@ -202,7 +208,7 @@ const Chatbot = () => {
                 <Badge
                     color="error"
                     variant="dot"
-                    invisible={!hasNewMessage}
+                    invisible={!hasUnreadMessages}
                     sx={{
                         '& .MuiBadge-badge': {
                             right: 14,
@@ -214,7 +220,7 @@ const Chatbot = () => {
                         color="primary"
                         onClick={() => {
                             setIsOpen(true);
-                            setHasNewMessage(false);
+                            setHasUnreadMessages(false); // Clear unread status when opening
                         }}
                         sx={{
                             position: 'absolute',
