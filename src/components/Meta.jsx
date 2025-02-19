@@ -36,6 +36,7 @@ const Meta = ({ title, description, keywords, image }) => {
             <meta property="og:image:alt" content={title || 'Hoang Huy Duc - Portfolio'} />
             <meta name="twitter:image" content={ogImage} />
             <meta name="twitter:image:alt" content={title || 'Hoang Huy Duc - Portfolio'} />
+            <meta property="fb:app_id" content={import.meta.env.VITE_FACEBOOK_APP_ID} />
             <link rel="icon" type="image/svg+xml" href={favicon} />
         </Helmet>
     );

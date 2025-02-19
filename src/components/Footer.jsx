@@ -23,6 +23,12 @@ const Footer = () => {
             </Link>
           ))}
         </div>
+
+        <div className="footer-links">
+          <Link to="/terms-of-service" className="text-sm text-gray-600 hover:text-gray-900">
+            Terms of Service
+          </Link>
+        </div>
       </div>
     </footer>
   );
