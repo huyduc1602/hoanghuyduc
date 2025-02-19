@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
 import { Chatbot, Meta, Navbar, Footer } from '../components';
 
 const ChatPage = () => {
+    // Load messages when component mounts
+    useEffect(() => {
+        const savedMessages = localStorage.getItem('chatMessages');
+        if (!savedMessages) {
+            // If no saved messages, initialize with empty array
+            localStorage.setItem('chatMessages', JSON.stringify([]));
+        }
+    }, []);
+
     return (
         <>
             <Meta

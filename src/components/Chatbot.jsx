@@ -28,8 +28,17 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { websiteQA } from '../data/chatbotQA';
 
 const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = false }) => {
-    // Initialize hooks
-    const [messages, setMessages] = useState([]);
+    // Update messages state to use localStorage
+    const [messages, setMessages] = useState(() => {
+        const savedMessages = localStorage.getItem('chatMessages');
+        return savedMessages ? JSON.parse(savedMessages) : [];
+    });
+
+    // Save messages to localStorage whenever they change
+    useEffect(() => {
+        localStorage.setItem('chatMessages', JSON.stringify(messages));
+    }, [messages]);
+
     const [input, setInput] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
