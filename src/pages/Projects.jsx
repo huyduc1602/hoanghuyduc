@@ -9,7 +9,7 @@ const Projects = () => {
         title="Projects"
         description="Explore my portfolio of web development projects and applications"
         keywords="projects, portfolio, web applications, react projects, full stack projects"
-        image="https://hoanghuyduc.com/projects-preview.png"
+        image="/projects-preview.png"
       />
       <h1 className='head-text'>
         My{" "}

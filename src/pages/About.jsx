@@ -15,7 +15,7 @@ const About = () => {
         title="About"
         description="Learn more about Hoang Huy Duc - Experience, skills, and background in web development"
         keywords="about, experience, skills, education, web development"
-        image="about-preview.png"
+        image="/about-preview.png"
       />
       <h1 className='head-text'>
         Hello, I'm{" "}

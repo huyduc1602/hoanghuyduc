@@ -8,7 +8,7 @@ const NotFound = () => {
         title="404 Not Found"
         description="The page you're looking for doesn't exist"
         keywords="404, not found, error"
-        image="notfound-preview.png"
+        image="/notfound-preview.png"
       />
       <h1 className="text-6xl font-bold mb-4">404</h1>
       <p className="text-xl mb-8">Oops! Page not found</p>

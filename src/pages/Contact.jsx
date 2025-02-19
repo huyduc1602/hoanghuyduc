@@ -77,7 +77,7 @@ const Contact = () => {
         title="Contact"
         description="Get in touch with Hoang Huy Duc - Let's discuss your next project"
         keywords="contact, email, collaboration, hire developer"
-        image="contact-preview.png"
+        image="/contact-preview.png"
       />
       {alert.show && <Alert {...alert} />}
 
