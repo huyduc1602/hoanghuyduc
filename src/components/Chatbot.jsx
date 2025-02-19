@@ -255,6 +255,25 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
         setIsOpen(false);
     };
 
+    const renderMessageContent = (content) => {
+        return content.split('\n').map((line, index) => (
+            <Typography
+                key={index}
+                component="div"
+                sx={{
+                    whiteSpace: 'pre-wrap',
+                    wordBreak: 'break-word',
+                    lineHeight: 1.5,
+                    '&:not(:last-child)': {
+                        mb: 0.5
+                    }
+                }}
+            >
+                {line}
+            </Typography>
+        ));
+    };
+
     const renderMessages = () => (
         <List>
             {messages.map((msg, index) => (
@@ -278,7 +297,7 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
                         }}
                     >
                         <ListItemText
-                            primary={msg.content}
+                            primary={renderMessageContent(msg.content)}
                             sx={{
                                 wordBreak: 'break-word',
                                 '& .MuiListItemText-primary': {

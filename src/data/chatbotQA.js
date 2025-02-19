@@ -2,11 +2,11 @@ export const websiteQA = {
     "About Me": [
         {
             q: "Who is Hoang Huy Duc?",
-            a: "I am a software developer specializing in web development, with expertise in React, Node.js, and modern web technologies."
+            a: "I am a software developer specializing in web and mobile development, with expertise in React, PHP, Java and modern web technologies."
         },
         {
             q: "What are your skills?",
-            a: "My core skills include:\n• Frontend: React, JavaScript, HTML5, CSS3\n• Backend: Node.js, Express\n• Database: MongoDB, MySQL\n• Tools: Git, Docker, AWS"
+            a: "My core skills include:\n• Frontend: React, JavaScript, HTML5, CSS3\n• Backend: PHP, Java\n• Database: MongoDB, MySQL\n• Tools: Git, Docker, AWS"
         },
         // Add more Q&A pairs...
     ],
