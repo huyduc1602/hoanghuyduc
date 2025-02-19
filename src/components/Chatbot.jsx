@@ -13,10 +13,12 @@ import {
     Fab,
     Zoom,
     IconButton,
-    Badge
+    Badge,
+    CircularProgress
 } from "@mui/material";
 import ChatIcon from '@mui/icons-material/Chat';
 import CloseIcon from '@mui/icons-material/Close';
+import SendIcon from '@mui/icons-material/Send';
 
 const Chatbot = () => {
     // Initialize hooks
@@ -220,7 +222,7 @@ const Chatbot = () => {
                         color="primary"
                         onClick={() => {
                             setIsOpen(true);
-                            setHasUnreadMessages(false); // Clear unread status when opening
+                            setHasUnreadMessages(false);
                         }}
                         sx={{
                             position: 'absolute',
@@ -303,17 +305,19 @@ const Chatbot = () => {
                                     }
                                 }}
                             />
-                            <Button
-                                variant="contained"
+                            <IconButton
+                                color="primary"
                                 onClick={sendMessage}
                                 disabled={isLoading || !input.trim()}
                                 sx={{
-                                    borderRadius: 3,
-                                    minWidth: 100
+                                    borderRadius: '50%',
                                 }}
                             >
-                                {isLoading ? 'Sending...' : 'Send'}
-                            </Button>
+                                {isLoading ?
+                                    <CircularProgress size={24} /> :
+                                    <SendIcon />
+                                }
+                            </IconButton>
                         </Box>
                     </Box>
                 </Paper>
