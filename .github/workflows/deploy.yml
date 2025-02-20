@@ -39,18 +39,19 @@ jobs:
       
       - name: Create env file
         env:
-          EMAILJS_SERVICE_ID: ${{ secrets.VITE_APP_EMAILJS_SERVICE_ID }}
-          EMAILJS_TEMPLATE_ID: ${{ secrets.VITE_APP_EMAILJS_TEMPLATE_ID }}
+          EMAILJS_SERVICE_ID: ${{ vars.VITE_APP_EMAILJS_SERVICE_ID }}
+          EMAILJS_TEMPLATE_ID: ${{ vars.VITE_APP_EMAILJS_TEMPLATE_ID }}
+          SPREADSHEET_ID: ${{ vars.VITE_SPREADSHEET_ID }}
+          SHEET_ID: ${{ vars.VITE_SHEET_ID }}
+          API_URL: ${{ vars.VITE_API_URL }}
+          GOOGLE_CLIENT_ID: ${{ vars.VITE_GOOGLE_CLIENT_ID }}
+          GOOGLE_APP_ID: ${{ vars.VITE_GOOGLE_APP_ID }}
+          REDIRECT_URI: ${{ vars.VITE_REDIRECT_URI }}
+          SITE_URL: ${{ vars.VITE_SITE_URL }}
           EMAILJS_PUBLIC_KEY: ${{ secrets.VITE_APP_EMAILJS_PUBLIC_KEY }}
-          SPREADSHEET_ID: ${{ secrets.VITE_SPREADSHEET_ID }}
-          SHEET_ID: ${{ secrets.VITE_SHEET_ID }}
           API_KEY: ${{ secrets.VITE_API_KEY }}
-          GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
           GOOGLE_API_KEY: ${{ secrets.VITE_GOOGLE_API_KEY }}
-          GOOGLE_APP_ID: ${{ secrets.VITE_GOOGLE_APP_ID }}
-          REDIRECT_URI: ${{ secrets.VITE_REDIRECT_URI }}
           FACEBOOK_APP_ID: ${{ secrets.VITE_FACEBOOK_APP_ID }}
-          SITE_URL: ${{ secrets.VITE_SITE_URL }}
           HUGGINGFACE_API_KEY: ${{ secrets.VITE_HUGGINGFACE_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.VITE_OPENAI_API_KEY }}
         run: |
@@ -61,6 +62,7 @@ jobs:
           VITE_SPREADSHEET_ID=${SPREADSHEET_ID}
           VITE_SHEET_ID=${SHEET_ID}
           VITE_API_KEY=${API_KEY}
+          VITE_API_URL=${API_URL}
           VITE_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
           VITE_GOOGLE_API_KEY=${GOOGLE_API_KEY}
           VITE_GOOGLE_APP_ID=${GOOGLE_APP_ID}
