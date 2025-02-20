@@ -37,28 +37,41 @@ jobs:
           node-version: 18
           cache: 'npm'
       
-      - name: Copy env file
-        run: cp .env.example .env
-
       - name: Create env file
+        env:
+          EMAILJS_SERVICE_ID: ${{ secrets.VITE_APP_EMAILJS_SERVICE_ID }}
+          EMAILJS_TEMPLATE_ID: ${{ secrets.VITE_APP_EMAILJS_TEMPLATE_ID }}
+          EMAILJS_PUBLIC_KEY: ${{ secrets.VITE_APP_EMAILJS_PUBLIC_KEY }}
+          SPREADSHEET_ID: ${{ secrets.VITE_SPREADSHEET_ID }}
+          SHEET_ID: ${{ secrets.VITE_SHEET_ID }}
+          API_KEY: ${{ secrets.VITE_API_KEY }}
+          GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
+          GOOGLE_API_KEY: ${{ secrets.VITE_GOOGLE_API_KEY }}
+          GOOGLE_APP_ID: ${{ secrets.VITE_GOOGLE_APP_ID }}
+          REDIRECT_URI: ${{ secrets.VITE_REDIRECT_URI }}
+          FACEBOOK_APP_ID: ${{ secrets.VITE_FACEBOOK_APP_ID }}
+          SITE_URL: ${{ secrets.VITE_SITE_URL }}
+          HUGGINGFACE_API_KEY: ${{ secrets.VITE_HUGGINGFACE_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.VITE_OPENAI_API_KEY }}
         run: |
-          touch .env
-            echo "VITE_APP_EMAILJS_SERVICE_ID=${{ secrets.VITE_APP_EMAILJS_SERVICE_ID }}" >> .env
-            echo "VITE_APP_EMAILJS_TEMPLATE_ID=${{ secrets.VITE_APP_EMAILJS_TEMPLATE_ID }}" >> .env
-            echo "VITE_APP_EMAILJS_PUBLIC_KEY=${{ secrets.VITE_APP_EMAILJS_PUBLIC_KEY }}" >> .env
-            echo "VITE_SPREADSHEET_ID=${{ secrets.VITE_SPREADSHEET_ID }}" >> .env
-            echo "VITE_SHEET_ID=${{ secrets.VITE_SHEET_ID }}" >> .env
-            echo "VITE_API_KEY=${{ secrets.VITE_API_KEY }}" >> .env
-            echo "VITE_GOOGLE_CLIENT_ID=${{ secrets.VITE_GOOGLE_CLIENT_ID }}" >> .env
-            echo "VITE_GOOGLE_API_KEY=${{ secrets.VITE_GOOGLE_API_KEY }}" >> .env
-            echo "VITE_GOOGLE_APP_ID=${{ secrets.VITE_GOOGLE_APP_ID }}" >> .env
-            echo "VITE_REDIRECT_URI=${{ secrets.VITE_REDIRECT_URI }}" >> .env
-            echo "VITE_FACEBOOK_APP_ID=${{ secrets.VITE_FACEBOOK_APP_ID }}" >> .env
-            echo "VITE_SITE_URL=${{ secrets.VITE_SITE_URL }}" >> .env
-            echo "VITE_HUGGINGFACE_API_KEY=${{ secrets.VITE_HUGGINGFACE_API_KEY }}" >> .env
-            echo "VITE_OPENAI_API_KEY=${{ secrets.VITE_OPENAI_API_KEY }}" >> .env
-            echo "PORT=3000" >> .env
-            echo "NODE_ENV=production" >> .env
+          cat << EOF > .env
+          VITE_APP_EMAILJS_SERVICE_ID=${EMAILJS_SERVICE_ID}
+          VITE_APP_EMAILJS_TEMPLATE_ID=${EMAILJS_TEMPLATE_ID}
+          VITE_APP_EMAILJS_PUBLIC_KEY=${EMAILJS_PUBLIC_KEY}
+          VITE_SPREADSHEET_ID=${SPREADSHEET_ID}
+          VITE_SHEET_ID=${SHEET_ID}
+          VITE_API_KEY=${API_KEY}
+          VITE_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+          VITE_GOOGLE_API_KEY=${GOOGLE_API_KEY}
+          VITE_GOOGLE_APP_ID=${GOOGLE_APP_ID}
+          VITE_REDIRECT_URI=${REDIRECT_URI}
+          VITE_FACEBOOK_APP_ID=${FACEBOOK_APP_ID}
+          VITE_SITE_URL=${SITE_URL}
+          VITE_HUGGINGFACE_API_KEY=${HUGGINGFACE_API_KEY}
+          VITE_OPENAI_API_KEY=${OPENAI_API_KEY}
+          PORT=3000
+          NODE_ENV=production
+          EOF
       
       - name: Install dependencies
         run: npm install
