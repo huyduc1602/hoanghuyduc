@@ -57,7 +57,8 @@ jobs:
             echo "VITE_SITE_URL=${{ secrets.VITE_SITE_URL }}" >> .env
             echo "VITE_HUGGINGFACE_API_KEY=${{ secrets.VITE_HUGGINGFACE_API_KEY }}" >> .env
             echo "VITE_OPENAI_API_KEY=${{ secrets.VITE_OPENAI_API_KEY }}" >> .env
-            echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> .env
+            echo "PORT=3000" >> .env
+            echo "NODE_ENV=production" >> .env
       
       - name: Install dependencies
         run: npm install
