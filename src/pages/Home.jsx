@@ -1,5 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect, useRef, useState } from "react";
+import { useTheme } from '../context/ThemeContext';
 
 import sakura from "../assets/sakura.mp3";
 import { HomeInfo, Loader, Meta } from "../components";
@@ -14,6 +15,7 @@ const Home = () => {
   const [currentStage, setCurrentStage] = useState(1);
   const [isRotating, setIsRotating] = useState(false);
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     if (isPlayingMusic) {
@@ -75,19 +77,25 @@ const Home = () => {
           camera={{ near: 0.1, far: 1000 }}
         >
           <Suspense fallback={<Loader />}>
-            <directionalLight position={[1, 1, 1]} intensity={2} />
-            <ambientLight intensity={0.5} />
-            <pointLight position={[10, 5, 10]} intensity={2} />
+            <directionalLight
+              position={[1, 1, 1]}
+              intensity={isDarkMode ? 1 : 2}
+            />
+            <ambientLight intensity={isDarkMode ? 0.3 : 0.5} />
+            <pointLight
+              position={[10, 5, 10]}
+              intensity={isDarkMode ? 1 : 2}
+            />
             <spotLight
               position={[0, 50, 10]}
               angle={0.15}
               penumbra={1}
-              intensity={2}
+              intensity={isDarkMode ? 1 : 2}
             />
             <hemisphereLight
-              skyColor='#b1e1ff'
+              skyColor={isDarkMode ? '#1a1a2e' : '#b1e1ff'}
               groundColor='#000000'
-              intensity={1}
+              intensity={isDarkMode ? 0.5 : 1}
             />
 
             <Bird />
