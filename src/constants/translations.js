@@ -46,3 +46,18 @@ export const languageSelectorTranslations = {
         selectLanguage: "选择语言"
     }
 };
+
+export const inputTranslations = {
+    en: {
+        placeholder: "Type a message..."
+    },
+    vi: {
+        placeholder: "Nhập tin nhắn..."
+    },
+    ja: {
+        placeholder: "メッセージを入力..."
+    },
+    zh: {
+        placeholder: "输入消息..."
+    }
+};
