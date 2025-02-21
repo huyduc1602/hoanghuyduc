@@ -31,8 +31,11 @@ import MessageList from './MessageList';
 import MessageInput from './MessageInput';
 import ChatSuggestions from './ChatSuggestions';
 import ChatbotLabel from './ChatbotLabel';
+import { useLanguage, languages } from '../../context/LanguageContext';
 
 const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = false }) => {
+    const { currentLanguage } = useLanguage(); // Get current language from useLanguage hook
+
     // Update messages state to use localStorage
     const [messages, setMessages] = useState(() => {
         const savedMessages = localStorage.getItem('chatMessages');
@@ -86,6 +89,11 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
         setInput("");
         setIsLoading(true);
 
+        // Add language instruction to the prompt
+        const languageInstruction = currentLanguage !== 'en'
+            ? `Please respond in ${languages[currentLanguage].name}. `
+            : '';
+
         // Check for predefined answers first
         const predefinedAnswer = Object.values(websiteQA)
             .flat()
@@ -109,7 +117,7 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
                     'Content-Type': 'application/json'
                 },
                 data: {
-                    inputs: `<s>[INST] ${userMessage} [/INST]`,
+                    inputs: `<s>[INST] ${languageInstruction}${userMessage} [/INST]`,
                     parameters: {
                         max_new_tokens: 1024,
                         temperature: 0.7,

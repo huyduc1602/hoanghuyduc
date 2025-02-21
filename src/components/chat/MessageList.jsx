@@ -1,7 +1,11 @@
 import { Box, List, ListItem, Paper, ListItemText, Typography } from '@mui/material';
 import MessageContent from './MessageContent';
+import { useLanguage } from '../../context/LanguageContext';
+import { loadingText } from '../../constants/translations';
 
 const MessageList = ({ messages, isLoading, messagesEndRef }) => {
+    const { currentLanguage } = useLanguage();
+
     return (
         <List>
             {messages.map((msg, index) => (
@@ -38,7 +42,7 @@ const MessageList = ({ messages, isLoading, messagesEndRef }) => {
                         }}
                     >
                         <Typography variant="body2" color="textSecondary">
-                            Typing...
+                            {loadingText[currentLanguage] || loadingText.en}
                         </Typography>
                     </Paper>
                 </ListItem>

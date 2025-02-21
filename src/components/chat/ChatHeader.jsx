@@ -2,6 +2,7 @@ import { Box, Typography, IconButton, Tooltip } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import CloseIcon from '@mui/icons-material/Close';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import LanguageSelector from './LanguageSelector';
 
 const ChatHeader = ({ 
   onClose, 
@@ -46,6 +47,7 @@ const ChatHeader = ({
           </IconButton>
         </Tooltip>
       )}
+      <LanguageSelector />
     </Box>
     {onClose && (
       <IconButton onClick={onClose} sx={{ color: 'white' }}>

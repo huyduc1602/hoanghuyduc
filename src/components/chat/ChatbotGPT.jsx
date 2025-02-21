@@ -17,8 +17,11 @@ import {
 } from "@mui/material";
 import ChatIcon from '@mui/icons-material/Chat';
 import CloseIcon from '@mui/icons-material/Close';
+import { useLanguage } from '../../context/LanguageContext';
+import { loadingText } from '../../constants/translations';
 
 const Chatbot = () => {
+    const { currentLanguage } = useLanguage();
     // Initialize hooks
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
@@ -141,7 +144,7 @@ const Chatbot = () => {
                         }}
                     >
                         <Typography variant="body2" color="textSecondary">
-                            Typing...
+                            {loadingText[currentLanguage] || loadingText.en}
                         </Typography>
                     </Paper>
                 </ListItem>
