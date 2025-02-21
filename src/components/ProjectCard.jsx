@@ -6,8 +6,10 @@ import ImageGoogleDrive from './ImageGoogleDrive';
 import ImageModal from './ImageModal';
 import { Link } from "react-router-dom";
 import { arrow } from "../assets/icons";
+import { useTheme } from '../context/ThemeContext';
 
 const ProjectCard = ({ project, onUpdateImages, columns }) => {
+    const { isDarkMode } = useTheme();
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -48,12 +50,12 @@ const ProjectCard = ({ project, onUpdateImages, columns }) => {
                 <div className="relative bg-gray-100">
                     <SliderWrapper settings={settings}>
                         {project.images.map((image, index) => (
-                            <div 
-                                key={index} 
+                            <div
+                                key={index}
                                 className={`relative ${getImageContainerClass(columns)}`}
                             >
-                                <div 
-                                    onClick={() => handleImageClick(image, index)} 
+                                <div
+                                    onClick={() => handleImageClick(image, index)}
                                     className="absolute inset-0 flex items-center justify-center"
                                 >
                                     <ImageGoogleDrive
@@ -72,14 +74,18 @@ const ProjectCard = ({ project, onUpdateImages, columns }) => {
                     </SliderWrapper>
                 </div>
                 <div className="px-6 pb-4">
-                    <div className="font-bold text-xl my-2">{project.title}</div>
-                    <p className="text-gray-700 text-base">{project.description}</p>
+                    <div className={`font-bold text-xl my-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+                        {project.title}
+                    </div>
+                    <p className={`${isDarkMode ? 'text-gray-300' : 'text-black'} text-base`}>
+                        {project.description}
+                    </p>
                     <div className="flex items-center space-x-2 mt-2">
                         <Link
                             to={project.link}
                             target='_blank'
                             rel='noopener noreferrer'
-                            className='font-semibold text-blue-600'
+                            className={`font-semibold ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
                         >
                             Live Link
                         </Link>

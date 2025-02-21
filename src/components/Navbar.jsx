@@ -17,10 +17,10 @@ const Navbar = () => {
           to='/about'
           className={({ isActive }) =>
             `cloud-button min-w-[70px] text-center px-4 py-2 transition-all duration-300 ${isActive
-              ? "active text-white bg-blue-600 dark:bg-blue-500"
+              ? `active text-white ${isDarkMode ? 'bg-blue-500' : 'bg-blue-600'}`
               : isHome
-                ? "!text-blue-600 bg-white hover:bg-slate-50 hover:shadow-lg dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700"
-                : "text-black hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
+                ? `!text-blue-600 ${isDarkMode ? 'bg-gray-800 text-blue-400 hover:bg-gray-700' : 'bg-white hover:bg-slate-50'} hover:shadow-lg`
+                : `${isDarkMode ? 'text-white hover:text-blue-400' : 'text-black hover:text-blue-600'}`
             }`
           }
         >
@@ -30,10 +30,10 @@ const Navbar = () => {
           to='/projects'
           className={({ isActive }) =>
             `cloud-button min-w-[70px] text-center px-4 py-2 transition-all duration-300 ${isActive
-              ? "active text-white bg-blue-600 dark:bg-blue-500"
+              ? `active text-white ${isDarkMode ? 'bg-blue-500' : 'bg-blue-600'}`
               : isHome
-                ? "!text-blue-600 bg-white hover:bg-slate-50 hover:shadow-lg dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700"
-                : "text-black hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
+                ? `!text-blue-600 ${isDarkMode ? 'bg-gray-800 text-blue-400 hover:bg-gray-700' : 'bg-white hover:bg-slate-50'} hover:shadow-lg`
+                : `${isDarkMode ? 'text-white hover:text-blue-400' : 'text-black hover:text-blue-600'}`
             }`
           }
         >
@@ -42,7 +42,8 @@ const Navbar = () => {
       </nav>
       <button
         onClick={toggleDarkMode}
-        className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        className={`p-2 rounded-lg transition-colors ${isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'
+          }`}
       >
         {isDarkMode ? (
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
