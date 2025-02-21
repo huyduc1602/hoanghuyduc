@@ -206,6 +206,8 @@ body:has(.card[data-color="green"]:hover) {
 .cloud-button {
   border-radius: 24px;
   position: relative;
+  isolation: isolate;
+  transition: transform 0.3s ease;
 }
 
 .cloud-button::before,
@@ -215,6 +217,8 @@ body:has(.card[data-color="green"]:hover) {
   background: inherit;
   border-radius: 50%;
   z-index: -1;
+  transform-origin: bottom center;
+  transition: all 0.3s ease;
 }
 
 .cloud-button::before {
@@ -222,6 +226,7 @@ body:has(.card[data-color="green"]:hover) {
   height: 22px;
   top: -6px;
   left: 40%;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
 }
 
 .cloud-button::after {
@@ -229,8 +234,17 @@ body:has(.card[data-color="green"]:hover) {
   height: 26px;
   top: -8px;
   left: calc(40% - 16px);
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
 }
 
 .cloud-button:hover {
+  transform: translateY(-1px);
+}
+
+.cloud-button:hover::before {
+  transform: translateY(-1px);
+}
+
+.cloud-button:hover::after {
   transform: translateY(-1px);
 }
