@@ -1,6 +1,5 @@
-import { Menu, MenuItem, IconButton, Typography } from '@mui/material';
+import { Menu, MenuItem, IconButton, Typography, Tooltip } from '@mui/material';
 import { useLanguage } from '../../context/LanguageContext';
-import TranslateIcon from '@mui/icons-material/Translate';
 import { useState } from 'react';
 
 const LanguageSelector = () => {
@@ -22,14 +21,21 @@ const LanguageSelector = () => {
 
   return (
     <>
-      <IconButton
-        onClick={handleClick}
-        size="small"
-        sx={{ color: 'white' }}
-        aria-label="Select language"
-      >
-        <TranslateIcon fontSize="small" />
-      </IconButton>
+      <Tooltip title={`Current: ${languages[currentLanguage].name}`}>
+        <IconButton
+          onClick={handleClick}
+          size="small"
+          sx={{ 
+            color: 'white',
+            fontSize: '1.25rem',
+            padding: '4px',
+            minWidth: '32px'
+          }}
+          aria-label="Select language"
+        >
+          {languages[currentLanguage].flag}
+        </IconButton>
+      </Tooltip>
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
