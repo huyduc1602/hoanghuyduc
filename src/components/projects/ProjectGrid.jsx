@@ -1,5 +1,5 @@
 import React from 'react';
-import ProjectCard from '../ProjectCard';
+import ProjectCard from './ProjectCard';
 
 const ProjectGrid = ({ projects, columns, getGridColumns }) => (
     <div className={`grid ${getGridColumns(columns)} gap-4`}>

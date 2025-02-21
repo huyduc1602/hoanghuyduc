@@ -1,7 +1,7 @@
 import React from 'react';
-import { projectFeatures } from "../constants";
+import { projectFeatures } from "../../constants";
 import { Link } from "react-router-dom";
-import { arrow } from "../assets/icons";
+import { arrow } from "../../assets/icons";
 
 const ProjectFeatures = () => {
     return (

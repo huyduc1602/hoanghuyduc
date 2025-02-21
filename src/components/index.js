@@ -1,11 +1,11 @@
 import CTA from "./CTA";
 import Alert from "./Alert";
 import Loader from "./Loader";
-import Navbar from "./Navbar";
+import Navbar from "./projects/Navbar";
 import Footer from "./Footer";
 import HomeInfo from "./HomeInfo";
 import { ProjectTabs } from "./projects";
-import ProjectFeatures from "./ProjectFeatures";
+import ProjectFeatures from "./projects/ProjectFeatures";
 import ImageGoogleDrive from "./ImageGoogleDrive";
 import Chatbot from './Chatbot';
 import Meta from './Meta';

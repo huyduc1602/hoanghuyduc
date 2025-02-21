@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import SliderWrapper from './SliderWrapper';
+import SliderWrapper from '../SliderWrapper';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import ImageGoogleDrive from './ImageGoogleDrive';
-import ImageModal from './ImageModal';
+import ImageGoogleDrive from '../ImageGoogleDrive';
+import ImageModal from '../ImageModal';
 import { Link } from "react-router-dom";
-import { arrow } from "../assets/icons";
-import { useTheme } from '../context/ThemeContext';
+import { arrow } from "../../assets/icons";
+import { useTheme } from '../../context/ThemeContext';
 
 const ProjectCard = ({ project, onUpdateImages, columns }) => {
     const { isDarkMode } = useTheme();

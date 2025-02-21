@@ -1,6 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { logo } from "../assets/images";
-import { useTheme } from '../context/ThemeContext';
+import { logo } from "../../assets/images";
+import { useTheme } from '../../context/ThemeContext';
 
 const Navbar = () => {
   const { pathname } = useLocation();
