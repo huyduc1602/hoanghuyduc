@@ -196,8 +196,8 @@ const Chatbot = () => {
                         display: 'flex',
                         flexDirection: 'column',
                         '@media (max-width: 600px)': {
-                            width: '100vw',
-                            height: '100vh',
+                            width: '90vw',
+                            height: '90vh',
                             borderRadius: 0,
                         }
                     }}
