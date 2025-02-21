@@ -12,15 +12,15 @@ const Navbar = () => {
       <NavLink to='/'>
         <img src={logo} alt='logo' className='w-18 h-18 object-contain' id='logo' />
       </NavLink>
-      <nav className='flex text-lg gap-6 font-medium'>
+      <nav className='flex text-lg gap-6 font-medium' data-home={isHome}>
         <NavLink
           to='/about'
           className={({ isActive }) =>
             `cloud-button min-w-[70px] text-center px-4 py-2 transition-all duration-300 ${isActive
-              ? "active text-white bg-blue-600"
+              ? "active text-white bg-blue-600 dark:bg-blue-500"
               : isHome
-                ? "!text-blue-600 bg-white hover:bg-slate-50 hover:shadow-lg"
-                : "text-black hover:text-blue-600"
+                ? "!text-blue-600 bg-white hover:bg-slate-50 hover:shadow-lg dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700"
+                : "text-black hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
             }`
           }
         >
@@ -30,10 +30,10 @@ const Navbar = () => {
           to='/projects'
           className={({ isActive }) =>
             `cloud-button min-w-[70px] text-center px-4 py-2 transition-all duration-300 ${isActive
-              ? "active text-white bg-blue-600"
+              ? "active text-white bg-blue-600 dark:bg-blue-500"
               : isHome
-                ? "!text-blue-600 bg-white hover:bg-slate-50 hover:shadow-lg"
-                : "text-black hover:text-blue-600"
+                ? "!text-blue-600 bg-white hover:bg-slate-50 hover:shadow-lg dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700"
+                : "text-black hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
             }`
           }
         >

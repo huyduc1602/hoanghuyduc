@@ -316,4 +316,15 @@ nav[data-home="true"] .cloud-button.active::after {
   @apply bg-gray-700;
 }
 
+/* Dark mode cloud button styles */
+.dark nav[data-home="true"] .cloud-button::before,
+.dark nav[data-home="true"] .cloud-button::after {
+  background: inherit;
+}
+
+.dark nav[data-home="true"] .cloud-button:hover::before,
+.dark nav[data-home="true"] .cloud-button:hover::after {
+  background: inherit;
+}
+
 /* Add more dark mode styles as needed */
