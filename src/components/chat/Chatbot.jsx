@@ -26,6 +26,7 @@ import SendIcon from '@mui/icons-material/Send';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { websiteQA } from '../../data/chatbotQA';
+import { websiteQATranslations } from '../../data/websiteQATranslations';
 import ChatHeader from './ChatHeader';
 import MessageList from './MessageList';
 import MessageInput from './MessageInput';
@@ -76,8 +77,18 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
 
     // Add this function to handle suggestion clicks
     const handleSuggestionClick = (question) => {
-        setInput(question);
-        sendMessage(question);
+        const selectedCategory = Object.keys(qaContent).find(category =>
+            qaContent[category].some(item => item.q === question)
+        );
+
+        const answer = qaContent[selectedCategory].find(item => item.q === question)?.a;
+
+        if (answer) {
+            setMessages(prev => [...prev,
+            { role: 'user', content: question },
+            { role: 'assistant', content: answer }
+            ]);
+        }
     };
 
     const sendMessage = async (messageText = input) => {
@@ -229,6 +240,9 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
         return null;
     }
 
+    // Get translated content based on current language
+    const qaContent = websiteQATranslations[currentLanguage] || websiteQATranslations.en;
+
     if (isStandalone) {
         return (
             <Box sx={{
@@ -259,7 +273,7 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
                 }}>
                     {messages.length === 0 && (
                         <ChatSuggestions
-                            suggestions={websiteQA}
+                            suggestions={qaContent}
                             selectedCategory={selectedCategory}
                             onCategorySelect={setSelectedCategory}
                             onSuggestionClick={handleSuggestionClick}
@@ -363,7 +377,7 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
                     }}>
                         {messages.length === 0 && (
                             <ChatSuggestions
-                                suggestions={websiteQA}
+                                suggestions={qaContent}
                                 selectedCategory={selectedCategory}
                                 onCategorySelect={setSelectedCategory}
                                 onSuggestionClick={handleSuggestionClick}
