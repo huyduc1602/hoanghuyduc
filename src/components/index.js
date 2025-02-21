@@ -7,7 +7,7 @@ import HomeInfo from "./HomeInfo";
 import { ProjectTabs } from "./projects";
 import ProjectFeatures from "./projects/ProjectFeatures";
 import ImageGoogleDrive from "./ImageGoogleDrive";
-import Chatbot from './Chatbot';
+import Chatbot from './chat/Chatbot';
 import Meta from './Meta';
 import Layout from './Layout';
 
