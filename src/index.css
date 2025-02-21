@@ -9,8 +9,14 @@
   --green-rgb: 125 161 35;
 }
 
+:root[class~="dark"] {
+  --blue-rgb: 29 78 216;
+  --green-rgb: 74 222 128;
+}
+
 body {
   font-family: "Work Sans", sans-serif;
+  @apply transition-colors duration-200;
 }
 
 body:has(.card[data-color="blue"]:hover) {
@@ -19,6 +25,10 @@ body:has(.card[data-color="blue"]:hover) {
 
 body:has(.card[data-color="green"]:hover) {
   background-color: rgb(var(--green-rgb) / 25%);
+}
+
+body.dark {
+  @apply bg-gray-900 text-white;
 }
 
 @layer utilities {
@@ -248,3 +258,62 @@ body:has(.card[data-color="green"]:hover) {
 .cloud-button:hover::after {
   transform: translateY(-1px);
 }
+
+/* Default state for home page */
+nav[data-home="true"] .cloud-button {
+  @apply bg-white text-gray-700;
+}
+
+/* Hover state for home page */
+nav[data-home="true"] .cloud-button:hover {
+  @apply bg-slate-50 text-blue-600;
+}
+
+/* Active state with better contrast */
+.cloud-button.active,
+nav[data-home="true"] .cloud-button.active {
+  @apply bg-blue-600 text-white shadow-lg;
+}
+
+.cloud-button.active::before,
+.cloud-button.active::after,
+nav[data-home="true"] .cloud-button.active::before,
+nav[data-home="true"] .cloud-button.active::after {
+  background: inherit;
+}
+
+/* Dark mode active state */
+.dark .cloud-button.active,
+.dark nav[data-home="true"] .cloud-button.active {
+  @apply bg-blue-600 text-white;
+}
+
+.dark nav[data-home="true"] .cloud-button {
+  @apply bg-gray-800 text-gray-100;
+}
+
+.dark nav[data-home="true"] .cloud-button:hover {
+  @apply bg-gray-700 text-blue-300;
+}
+
+.dark .header {
+  @apply text-white;
+}
+
+.dark .cloud-button {
+  @apply text-white hover:text-blue-300;
+}
+
+.dark .cloud-button:not(.active):not(:hover) {
+  @apply text-white;
+}
+
+.dark nav[data-home="true"] .cloud-button {
+  @apply bg-gray-800;
+}
+
+.dark nav[data-home="true"] .cloud-button:hover {
+  @apply bg-gray-700;
+}
+
+/* Add more dark mode styles as needed */
