@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
 import { Chatbot, Meta } from '../components';
+import { useTheme } from '../context/ThemeContext';
 
 const ChatPage = () => {
+    const { isDarkMode } = useTheme();
+
     useEffect(() => {
         const savedMessages = localStorage.getItem('chatMessages');
         if (!savedMessages) {
@@ -23,9 +26,10 @@ const ChatPage = () => {
                     minHeight: '100vh',
                     display: 'flex',
                     flexDirection: 'column',
-                    bgcolor: '#f5f5f5',
+                    bgcolor: isDarkMode ? 'grey.900' : '#f5f5f5',
                     pt: '64px', // Header height
                     pb: '60px', // Footer height
+                    transition: 'background-color 0.3s ease',
                 }}
             >
                 <Box
@@ -44,12 +48,14 @@ const ChatPage = () => {
                             minHeight: 'inherit', // Inherit parent's minHeight
                             display: 'flex',
                             flexDirection: 'column',
+                            bgcolor: isDarkMode ? 'grey.900' : 'inherit',
                         }
                     }}
                 >
                     <Chatbot
                         isStandalone={true}
                         fullScreen={false}
+                        theme={isDarkMode ? 'dark' : 'light'}
                     />
                 </Box>
             </Box>
