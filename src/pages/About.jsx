@@ -5,10 +5,13 @@ import {
 
 import { CTA, Meta } from "../components";
 import { experiences, skills } from "../constants";
+import { useTheme } from '../context/ThemeContext';
 
 import "react-vertical-timeline-component/style.min.css";
 
 const About = () => {
+  const { isDarkMode } = useTheme();
+
   return (
     <section className='max-container'>
       <Meta
@@ -17,7 +20,7 @@ const About = () => {
         keywords="about, experience, skills, education, web development"
         image="/about-preview.png"
       />
-      <h1 className='head-text'>
+      <h1 className={`head-text ${isDarkMode ? 'text-white' : 'text-black'}`}>
         Hello, I'm{" "}
         <span className='blue-gradient_text font-semibold drop-shadow'>
           {" "}
@@ -26,20 +29,20 @@ const About = () => {
         👋
       </h1>
 
-      <div className='mt-5 flex flex-col gap-3 text-slate-500'>
+      <div className={`mt-5 flex flex-col gap-3 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
         <p>
           Software Engineer based in Vietnam, specializing in website and mobile through hands-on learning and building applications.
         </p>
       </div>
 
       <div className='py-10 flex flex-col'>
-        <h3 className='subhead-text'>My Skills</h3>
+        <h3 className={`subhead-text ${isDarkMode ? 'text-white' : 'text-black'}`}>My Skills</h3>
 
         <div className='mt-16 flex flex-wrap gap-12'>
           {skills.map((skill) => (
-            <div className='block-container w-[5rem] h-20' key={skill.name}>
-              <div className='btn-back rounded-xl' />
-              <div className='btn-front rounded-xl flex justify-center items-center'>
+            <div className={`block-container w-[5rem] h-20 ${isDarkMode ? 'bg-slate-800' : 'bg-white'}`} key={skill.name}>
+              <div className={`btn-back rounded-xl ${isDarkMode ? 'bg-slate-700' : 'bg-white'}`} />
+              <div className={`btn-front rounded-xl flex justify-center items-center ${isDarkMode ? 'bg-slate-800' : 'bg-white'}`}>
                 <img
                   src={skill.imageUrl}
                   alt={skill.name}
@@ -52,8 +55,8 @@ const About = () => {
       </div>
 
       <div className='py-16'>
-        <h3 className='subhead-text'>Work Experience.</h3>
-        <div className='mt-5 flex flex-col gap-3 text-slate-500'>
+        <h3 className={`subhead-text ${isDarkMode ? 'text-white' : 'text-black'}`}>Work Experience.</h3>
+        <div className={`mt-5 flex flex-col gap-3 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
           <p>
             I've worked with all sorts of companies, leveling up my skills and
             teaming up with smart people. Here's the rundown:
@@ -81,14 +84,18 @@ const About = () => {
                   borderStyle: "solid",
                   borderBottomColor: experience.iconBg,
                   boxShadow: "none",
+                  background: isDarkMode ? '#1e293b' : '#ffffff',
+                }}
+                contentArrowStyle={{
+                  borderRight: isDarkMode ? '7px solid #1e293b' : '7px solid #ffffff'
                 }}
               >
                 <div>
-                  <h3 className='text-black text-xl font-poppins font-semibold'>
+                  <h3 className={`text-xl font-poppins font-semibold ${isDarkMode ? 'text-white' : 'text-black'}`}>
                     {experience.title}
                   </h3>
                   <p
-                    className='text-black-500 font-medium text-base'
+                    className={`font-medium text-base ${isDarkMode ? 'text-slate-300' : 'text-black-500'}`}
                     style={{ margin: 0 }}
                   >
                     {experience.company_name}
@@ -99,7 +106,7 @@ const About = () => {
                   {experience.points.map((point, index) => (
                     <li
                       key={`experience-point-${index}`}
-                      className='text-black-500/50 font-normal pl-1 text-sm'
+                      className={`font-normal pl-1 text-sm ${isDarkMode ? 'text-slate-400' : 'text-black-500/50'}`}
                     >
                       {point}
                     </li>
@@ -111,7 +118,7 @@ const About = () => {
         </div>
       </div>
 
-      <hr className='border-slate-200' />
+      <hr className={isDarkMode ? 'border-slate-700' : 'border-slate-200'} />
 
       <CTA />
     </section>

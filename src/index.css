@@ -328,3 +328,17 @@ nav[data-home="true"] .cloud-button.active::after {
 }
 
 /* Add more dark mode styles as needed */
+
+.dark .input,
+.dark .textarea {
+  @apply border-slate-700 bg-slate-800 text-white;
+}
+
+.dark .input::placeholder,
+.dark .textarea::placeholder {
+  @apply text-slate-500;
+}
+
+.dark .btn {
+  @apply bg-slate-700 text-white hover:bg-slate-600;
+}

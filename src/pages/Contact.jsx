@@ -1,6 +1,7 @@
 import emailjs from "@emailjs/browser";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useRef, useState } from "react";
+import { useTheme } from '../context/ThemeContext';
 
 import { Fox } from "../models";
 import useAlert from "../hooks/useAlert";
@@ -12,6 +13,7 @@ const Contact = () => {
   const { alert, showAlert, hideAlert } = useAlert();
   const [loading, setLoading] = useState(false);
   const [currentAnimation, setCurrentAnimation] = useState("idle");
+  const { isDarkMode } = useTheme();
 
   const handleChange = ({ target: { name, value } }) => {
     setForm({ ...form, [name]: value });
@@ -82,19 +84,21 @@ const Contact = () => {
       {alert.show && <Alert {...alert} />}
 
       <div className='flex-1 min-w-[50%] flex flex-col'>
-        <h1 className='head-text'>Get in Touch</h1>
+        <h1 className={`head-text ${isDarkMode ? 'text-white' : 'text-black'}`}>
+          Get in Touch
+        </h1>
 
         <form
           ref={formRef}
           onSubmit={handleSubmit}
           className='w-full flex flex-col gap-7 mt-14'
         >
-          <label className='text-black-500 font-semibold'>
+          <label className={`font-semibold ${isDarkMode ? 'text-slate-200' : 'text-black-500'}`}>
             Name
             <input
               type='text'
               name='name'
-              className='input'
+              className={`input ${isDarkMode ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500' : ''}`}
               placeholder='John'
               required
               value={form.name}
@@ -103,12 +107,12 @@ const Contact = () => {
               onBlur={handleBlur}
             />
           </label>
-          <label className='text-black-500 font-semibold'>
+          <label className={`font-semibold ${isDarkMode ? 'text-slate-200' : 'text-black-500'}`}>
             Email
             <input
               type='email'
               name='email'
-              className='input'
+              className={`input ${isDarkMode ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500' : ''}`}
               placeholder='John@gmail.com'
               required
               value={form.email}
@@ -117,12 +121,12 @@ const Contact = () => {
               onBlur={handleBlur}
             />
           </label>
-          <label className='text-black-500 font-semibold'>
+          <label className={`font-semibold ${isDarkMode ? 'text-slate-200' : 'text-black-500'}`}>
             Your Message
             <textarea
               name='message'
               rows='4'
-              className='textarea'
+              className={`textarea ${isDarkMode ? 'bg-slate-800 border-slate-700 text-white placeholder:text-slate-500' : ''}`}
               placeholder='Write your thoughts here...'
               value={form.message}
               onChange={handleChange}
@@ -134,7 +138,7 @@ const Contact = () => {
           <button
             type='submit'
             disabled={loading}
-            className='btn'
+            className={`btn ${isDarkMode ? 'bg-slate-700 hover:bg-slate-600 text-white' : ''}`}
             onFocus={handleFocus}
             onBlur={handleBlur}
           >
@@ -143,7 +147,7 @@ const Contact = () => {
         </form>
       </div>
 
-      <div className='lg:w-1/2 w-full lg:h-auto md:h-[550px] h-[350px]'>
+      <div className={`lg:w-1/2 w-full lg:h-auto md:h-[550px] h-[350px] ${isDarkMode ? 'bg-slate-900' : ''}`}>
         <Canvas
           camera={{
             position: [0, 0, 5],
@@ -152,14 +156,14 @@ const Contact = () => {
             far: 1000,
           }}
         >
-          <directionalLight position={[0, 0, 1]} intensity={2.5} />
-          <ambientLight intensity={1} />
-          <pointLight position={[5, 10, 0]} intensity={2} />
+          <directionalLight position={[0, 0, 1]} intensity={isDarkMode ? 1.5 : 2.5} />
+          <ambientLight intensity={isDarkMode ? 0.5 : 1} />
+          <pointLight position={[5, 10, 0]} intensity={isDarkMode ? 1 : 2} />
           <spotLight
             position={[10, 10, 10]}
             angle={0.15}
             penumbra={1}
-            intensity={2}
+            intensity={isDarkMode ? 1 : 2}
           />
 
           <Suspense fallback={<Loader />}>

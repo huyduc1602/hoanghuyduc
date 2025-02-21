@@ -7,6 +7,7 @@ import MessageInput from '../components/chat/MessageInput';
 import ChatSuggestions from '../components/chat/ChatSuggestions';
 import { useLanguage } from '../context/LanguageContext';
 import { websiteQATranslations } from '../data/websiteQATranslations';
+import { useTheme } from '../context/ThemeContext';
 
 const ChatPage = () => {
     const [messages, setMessages] = useState([]);
@@ -15,6 +16,7 @@ const ChatPage = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const { currentLanguage } = useLanguage();
     const qaContent = websiteQATranslations[currentLanguage] || websiteQATranslations.en;
+    const { isDarkMode } = useTheme();
 
     useEffect(() => {
         const savedMessages = localStorage.getItem('chatMessages');
@@ -62,44 +64,39 @@ const ChatPage = () => {
     };
 
     return (
-        <Box sx={{
-            height: '100vh',
-            paddingTop: '100px',
-            paddingBottom: '50px',
-            paddingLeft: 5,
-            paddingRight: 5,
-            display: 'flex',
-            flexDirection: 'column',
-            bgcolor: 'background.default'
-        }}>
+        <section className='max-container'>
             <Meta
                 title="Chat AI"
                 description="AI Chat Assistant - Hoang Huy Duc's portfolio website"
                 keywords="chat ai, assistant, ai chat, conversation"
             />
             <Box sx={{
-                flex: 1,
+                width: '100%',
+                height: '100vh',
                 display: 'flex',
                 flexDirection: 'column',
-                overflow: 'hidden',
+                bgcolor: isDarkMode ? '#1a1a1a' : '#ffffff'
             }}>
-                <ChatHeader showOpenInNew={false} />
                 <Box sx={{
                     flex: 1,
                     display: 'flex',
                     flexDirection: 'column',
                     overflow: 'hidden',
-                    position: 'relative'
+                    bgcolor: isDarkMode ? '#2d2d2d' : '#ffffff',
+                    borderRadius: 2,
+                    boxShadow: isDarkMode ? '0 0 10px rgba(0,0,0,0.5)' : '0 0 10px rgba(0,0,0,0.1)'
                 }}>
+                    <ChatHeader showOpenInNew={false} isDarkMode={isDarkMode} />
                     <Box sx={{
                         flex: 1,
                         overflowY: "auto",
                         p: 2,
-                        bgcolor: '#f5f5f5'
+                        bgcolor: isDarkMode ? '#1a1a1a' : '#f5f5f5'
                     }}>
                         <MessageList
                             messages={messages}
                             isLoading={isLoading}
+                            isDarkMode={isDarkMode}
                         />
                     </Box>
                     <ChatSuggestions
@@ -107,6 +104,7 @@ const ChatPage = () => {
                         selectedCategory={selectedCategory}
                         onCategorySelect={setSelectedCategory}
                         onSuggestionClick={handleSuggestionClick}
+                        isDarkMode={isDarkMode}
                     />
                     <MessageInput
                         input={input}
@@ -114,11 +112,12 @@ const ChatPage = () => {
                         onSend={handleSendMessage}
                         onKeyPress={handleKeyPress}
                         isLoading={isLoading}
-                        fullWidth={true} // Always set to true for ChatPage
+                        fullWidth={true}
+                        isDarkMode={isDarkMode}
                     />
                 </Box>
             </Box>
-        </Box>
+        </section>
     );
 };
 

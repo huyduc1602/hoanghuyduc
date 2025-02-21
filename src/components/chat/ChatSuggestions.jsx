@@ -4,7 +4,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 
-const ChatSuggestions = ({ suggestions, selectedCategory, onCategorySelect, onSuggestionClick }) => {
+const ChatSuggestions = ({ suggestions, selectedCategory, onCategorySelect, onSuggestionClick, isDarkMode }) => {
     const [isExpanded, setIsExpanded] = useState(true);
     const [expandedCategory, setExpandedCategory] = useState(null);
     const { currentLanguage } = useLanguage();
@@ -25,7 +25,7 @@ const ChatSuggestions = ({ suggestions, selectedCategory, onCategorySelect, onSu
 
     return (
         <Box sx={{
-            bgcolor: 'background.paper',
+            bgcolor: isDarkMode ? 'background.paper' : 'background.default',
             borderTop: 1,
             borderBottom: 1,
             borderColor: 'divider',
@@ -61,7 +61,11 @@ const ChatSuggestions = ({ suggestions, selectedCategory, onCategorySelect, onSu
                                     label={category}
                                     onClick={() => handleCategoryClick(category)}
                                     color={expandedCategory === category ? "primary" : "default"}
-                                    sx={{ cursor: 'pointer' }}
+                                    sx={{
+                                        cursor: 'pointer',
+                                        bgcolor: isDarkMode ? 'background.default' : 'background.paper',
+                                        color: isDarkMode ? 'text.primary' : 'inherit'
+                                    }}
                                 />
                             ))}
                         </Stack>
@@ -78,7 +82,9 @@ const ChatSuggestions = ({ suggestions, selectedCategory, onCategorySelect, onSu
                                             textAlign: 'left',
                                             whiteSpace: 'normal',
                                             height: 'auto',
-                                            padding: '8px 16px'
+                                            padding: '8px 16px',
+                                            color: isDarkMode ? 'text.primary' : 'inherit',
+                                            borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.23)' : 'rgba(0, 0, 0, 0.23)'
                                         }}
                                     >
                                         {item.q}

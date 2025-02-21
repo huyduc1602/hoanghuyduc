@@ -9,7 +9,8 @@ const MessageInput = ({
     onSend,
     onKeyPress,
     isLoading,
-    fullWidth = false
+    fullWidth = false,
+    isDarkMode
 }) => {
     const { currentLanguage } = useLanguage();
     const translations = inputTranslations[currentLanguage] || inputTranslations.en;
@@ -17,16 +18,16 @@ const MessageInput = ({
     return (
         <Box sx={{
             p: 2,
-            bgcolor: 'white',
+            bgcolor: isDarkMode ? 'background.paper' : 'white',
             borderTop: 1,
             borderColor: 'divider',
-            width: '100%' // Add this
+            width: '100%'
         }}>
             <Box sx={{
                 display: "flex",
                 gap: 1,
-                width: '100%', // Changed from maxWidth
-                maxWidth: fullWidth ? '1200px' : '800px', // Increased max width
+                width: '100%',
+                maxWidth: fullWidth ? '1200px' : '800px',
                 margin: '0 auto'
             }}>
                 <TextField
@@ -40,7 +41,14 @@ const MessageInput = ({
                     size="small"
                     sx={{
                         '& .MuiOutlinedInput-root': {
-                            borderRadius: 3
+                            borderRadius: 3,
+                            bgcolor: isDarkMode ? 'background.default' : 'background.paper',
+                            '& fieldset': {
+                                borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.23)' : 'rgba(0, 0, 0, 0.23)'
+                            }
+                        },
+                        '& .MuiInputBase-input': {
+                            color: isDarkMode ? 'text.primary' : 'inherit'
                         }
                     }}
                 />
