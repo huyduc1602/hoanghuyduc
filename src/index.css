@@ -202,3 +202,35 @@ body:has(.card[data-color="green"]:hover) {
   width: 50px;
   height: auto;
 }
+
+.cloud-button {
+  border-radius: 24px;
+  position: relative;
+}
+
+.cloud-button::before,
+.cloud-button::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.cloud-button::before {
+  width: 22px;
+  height: 22px;
+  top: -6px;
+  left: 40%;
+}
+
+.cloud-button::after {
+  width: 26px;
+  height: 26px;
+  top: -8px;
+  left: calc(40% - 16px);
+}
+
+.cloud-button:hover {
+  transform: translateY(-1px);
+}
