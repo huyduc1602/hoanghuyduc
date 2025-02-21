@@ -30,7 +30,9 @@ import {
     kotlin,
     aws,
     elasticsearch,
-    redis
+    redis,
+    kafka,
+    docker
 } from "../assets/icons";
 
 export const skills = [
@@ -118,6 +120,16 @@ export const skills = [
         imageUrl: redis,
         name: "Redis",
         type: "Backend",
+    },
+    {
+        imageUrl: kafka,
+        name: "Kafka",
+        type: "Backend",
+    },
+    {
+        imageUrl: docker,
+        name: "Docker",
+        type: "DevOps",
     }
 ];
 

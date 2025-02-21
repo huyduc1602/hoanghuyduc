@@ -33,6 +33,8 @@ import kotlin from './kotlin.svg'
 import aws from './aws.svg'
 import elasticsearch from './elasticsearch.svg'
 import redis from './redis.svg'
+import kafka from './kafka.svg'
+import docker from './docker.svg'
 
 export {
     css,
@@ -69,5 +71,7 @@ export {
     kotlin,
     aws,
     elasticsearch,
-    redis
+    redis,
+    kafka,
+    docker
 }
