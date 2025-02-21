@@ -4,7 +4,7 @@ import Loader from "./Loader";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import HomeInfo from "./HomeInfo";
-import ProjectTabs from "./ProjectTabs";
+import { ProjectTabs } from "./projects";
 import ProjectFeatures from "./ProjectFeatures";
 import ImageGoogleDrive from "./ImageGoogleDrive";
 import Chatbot from './Chatbot';
