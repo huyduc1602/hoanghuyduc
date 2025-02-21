@@ -291,7 +291,16 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
                     }}
                 >
                     <Box sx={{ position: 'relative' }}>
-                        <ChatbotLabel />
+                        <Box sx={{
+                            position: 'absolute',
+                            width: '130px',
+                            height: '130px',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <ChatbotLabel />
+                        </Box>
                         <Fab
                             color="primary"
                             onClick={() => {
@@ -299,9 +308,10 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
                                 setHasUnreadMessages(false);
                             }}
                             sx={{
-                                position: 'absolute',
-                                bottom: 0,
-                                right: 0,
+                                width: 56,
+                                height: 56,
+                                position: 'relative',
+                                zIndex: 1,
                                 boxShadow: 3
                             }}
                         >
