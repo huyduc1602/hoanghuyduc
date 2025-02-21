@@ -46,15 +46,20 @@ cd hoanghuyduc
 npm install
 ```
 
-3. Create a `.env` file in the root directory and add your environment variables:
+3. Create `.env` file by copying from `.env.example`:
+```bash
+cp .env.example .env
+```
+
+4. Update the `.env` file with your environment variables:
 ```env
 VITE_APP_EMAILJS_SERVICE_ID=your_service_id
 VITE_APP_EMAILJS_TEMPLATE_ID=your_template_id
 VITE_APP_EMAILJS_PUBLIC_KEY=your_public_key
-# Add other required environment variables
+# Update other required environment variables
 ```
 
-4. Start the development server:
+5. Start the development server:
 ```bash
 npm run dev
 ```
