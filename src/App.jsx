@@ -10,16 +10,18 @@ const App = () => {
       <Router>
         <Meta />
         <Layout>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/about' element={<About />} />
-            <Route path='/projects' element={<Projects />} />
-            <Route path='/contact' element={<Contact />} />
-            <Route path='/oauth2callback' element={<OAuth2Callback />} />
-            <Route path='/terms-of-service' element={<TermsOfService />} />
-            <Route path='/chat' element={<ChatPage />} />
-            <Route path='*' element={<NotFound />} />
-          </Routes>
+          <div className="scroll-smooth">
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/about' element={<About />} />
+              <Route path='/projects' element={<Projects />} />
+              <Route path='/contact' element={<Contact />} />
+              <Route path='/oauth2callback' element={<OAuth2Callback />} />
+              <Route path='/terms-of-service' element={<TermsOfService />} />
+              <Route path='/chat' element={<ChatPage />} />
+              <Route path='*' element={<NotFound />} />
+            </Routes>
+          </div>
         </Layout>
       </Router>
     </HelmetProvider>
