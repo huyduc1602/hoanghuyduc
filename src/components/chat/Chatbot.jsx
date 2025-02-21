@@ -269,8 +269,14 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
                     flex: 1,
                     overflowY: "auto",
                     p: 2,
-                    bgcolor: '#f5f5f5'
+                    bgcolor: '#f5f5f5',
+                    position: 'relative' // Add this
                 }}>
+                    <MessageList
+                        messages={messages}
+                        isLoading={isLoading}
+                        messagesEndRef={messagesEndRef}
+                    />
                     {messages.length === 0 && (
                         <ChatSuggestions
                             suggestions={qaContent}
@@ -279,11 +285,6 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
                             onSuggestionClick={handleSuggestionClick}
                         />
                     )}
-                    <MessageList
-                        messages={messages}
-                        isLoading={isLoading}
-                        messagesEndRef={messagesEndRef}
-                    />
                 </Box>
                 <MessageInput
                     input={input}
@@ -375,20 +376,20 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
                         bgcolor: '#f5f5f5',
                         scrollBehavior: 'smooth'
                     }}>
-                        {messages.length === 0 && (
-                            <ChatSuggestions
-                                suggestions={qaContent}
-                                selectedCategory={selectedCategory}
-                                onCategorySelect={setSelectedCategory}
-                                onSuggestionClick={handleSuggestionClick}
-                            />
-                        )}
                         <MessageList
                             messages={messages}
                             isLoading={isLoading}
                             messagesEndRef={messagesEndRef}
                         />
                     </Box>
+                    {!isLoading && (
+                        <ChatSuggestions
+                            suggestions={qaContent}
+                            selectedCategory={selectedCategory}
+                            onCategorySelect={setSelectedCategory}
+                            onSuggestionClick={handleSuggestionClick}
+                        />
+                    )}
                     <MessageInput
                         input={input}
                         onChange={(e) => setInput(e.target.value)}
