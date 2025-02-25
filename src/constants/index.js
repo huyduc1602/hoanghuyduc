@@ -1,4 +1,4 @@
-import { ecp, tsg, aht, ids } from "../assets/images";
+import { ecp, tsg, aht, ids, groot } from "../assets/images";
 import {
     car,
     contact,
@@ -182,6 +182,18 @@ export const experiences = [
             "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
             "Implementing responsive design and ensuring cross-browser compatibility.",
             "App development with React Native"
+        ],
+    },
+    {
+        title: "PHP Developer",
+        company_name: "Groot",
+        icon: groot,
+        iconBg: "#a2b4ff ",
+        date: "April 2022 - October 2024",
+        points: [
+            "Developing and maintaining web applications using PHP and other related technologies.",
+            "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
+            "Implementing responsive design and ensuring cross-browser compatibility.",
         ],
     },
 ];

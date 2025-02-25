@@ -3,6 +3,7 @@ import ecp from './ecp.png'
 import tsg from './tsg.png'
 import aht from './aht.png'
 import ids from './ids.png'
+import groot from './groot.png'
 import logo from './logo.svg'
 
 export {
@@ -11,5 +12,6 @@ export {
     tsg,
     aht,
     ids,
+    groot,
     logo
 }
