@@ -1,115 +1,120 @@
-import React, { useState } from 'react';
-import SliderWrapper from '../SliderWrapper';
+import React, { useState, useRef, useEffect } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import ImageGoogleDrive from '../ImageGoogleDrive';
 import ImageModal from '../ImageModal';
-import { Link } from "react-router-dom";
-import { arrow } from "../../assets/icons";
 import { useTheme } from '../../context/ThemeContext';
+import ProjectImage from './ProjectImage';
+import ProjectContent from './ProjectContent';
+import { useProjectCardAnimation } from '../../hooks/useProjectCardAnimation';
 
 const ProjectCard = ({ project, onUpdateImages, columns, className }) => {
     const { isDarkMode } = useTheme();
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedIndex, setSelectedIndex] = useState(0);
 
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        pauseOnHover: true,
-        fade: true,
-        cssEase: 'linear',
-        arrows: true,
-        lazyLoad: true, // Add lazy loading
-        swipeToSlide: true, // Better mobile experience
-        customPaging: (i) => (
-            <div className="w-3 h-3 mx-1 rounded-full bg-gray-300 hover:bg-blue-500 transition-colors duration-300" />
-        ),
-    };
+    // Refs for GSAP animations
+    const cardRef = useRef(null);
+    const imageContainerRef = useRef(null);
+    const contentRef = useRef(null);
+    const titleRef = useRef(null);
+    const descRef = useRef(null);
+    const linkRef = useRef(null);
+
+    // Use our custom animation hook
+    useProjectCardAnimation({
+        cardRef,
+        imageContainerRef,
+        contentRef,
+        titleRef,
+        descRef,
+        linkRef,
+        isDarkMode
+    });
 
     const handleImageClick = (image, index) => {
         setSelectedImage(image);
         setSelectedIndex(index);
     };
 
-    const getImageContainerClass = (columns) => {
-        if (columns === 1) {
-            return "h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]";
+    // Add CSS for slider progress bar animation
+    React.useEffect(() => {
+        const style = document.createElement('style');
+        style.textContent = `
+        @keyframes progress {
+          from { width: 0; }
+          to { width: 100%; }
         }
-        return "h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px]";
-    };
+        
+        .progress-bar {
+          animation: progress 5s linear forwards;
+          animation-play-state: running;
+        }
+        
+        .slick-slider:hover .progress-bar {
+          animation-play-state: paused;
+        }
+        
+        /* Fix for empty slides */
+        .slick-track {
+          display: flex !important;
+        }
+        
+        .slick-slide {
+          height: inherit !important;
+          display: flex !important;
+          justify-content: center;
+          align-items: center;
+        }
+        
+        .slick-slide > div {
+          width: 100%;
+          height: 100%;
+        }
+      `;
+        document.head.appendChild(style);
+
+        return () => {
+            document.head.removeChild(style);
+        };
+    }, []);
+
+    // Ensure project has valid image array
+    const safeImages = project && project.images && Array.isArray(project.images) ?
+        project.images : [];
 
     return (
         <>
             <div
-                className={`${className} overflow-hidden rounded-lg shadow-lg hover:shadow-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'} w-full`}
-                style={{
-                    transition: "transform 0.6s ease, opacity 0.6s ease",
-                    willChange: "transform, opacity"
-                }}
+                ref={cardRef}
+                className={`${className} overflow-hidden rounded-lg shadow-lg ${isDarkMode ? 'bg-gray-800' : 'bg-white'} w-full`}
             >
-                <div className="relative bg-gray-100">
-                    <SliderWrapper settings={settings}>
-                        {project.images.map((image, index) => (
-                            <div
-                                key={index}
-                                className={`relative ${getImageContainerClass(columns)}`}
-                            >
-                                <div
-                                    onClick={() => handleImageClick(image, index)}
-                                    className="absolute inset-0 flex items-center justify-center"
-                                >
-                                    <ImageGoogleDrive
-                                        imageUrl={image}
-                                        alt={`${project.title} - ${index + 1}`}
-                                        className="w-full h-full object-cover cursor-pointer"
-                                        onImageSelect={(newUrl) => {
-                                            const newImages = [...project.images];
-                                            newImages[index] = newUrl;
-                                            onUpdateImages?.(project.id, newImages);
-                                        }}
-                                    />
-                                </div>
-                            </div>
-                        ))}
-                    </SliderWrapper>
-                </div>
-                <div className="px-6 py-4">
-                    <div className={`font-bold text-xl mb-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>
-                        {project.title}
-                    </div>
-                    <p className={`${isDarkMode ? 'text-gray-300' : 'text-black'} text-base`}>
-                        {project.description}
-                    </p>
-                    <div className="flex items-center space-x-2 mt-4">
-                        <Link
-                            to={project.link}
-                            target='_blank'
-                            rel='noopener noreferrer'
-                            className={`font-semibold ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}
-                        >
-                            Live Link
-                        </Link>
-                        <img
-                            src={arrow}
-                            alt='arrow'
-                            className='w-4 h-4 object-contain'
-                        />
-                    </div>
-                </div>
+                <ProjectImage
+                    images={safeImages}
+                    title={project.title || "Project"}
+                    columns={columns}
+                    onImageClick={handleImageClick}
+                    onUpdateImages={(newImages) => onUpdateImages?.(project.id, newImages)}
+                    containerRef={imageContainerRef}
+                />
+
+                <ProjectContent
+                    title={project.title || "Project"}
+                    description={project.description || ""}
+                    link={project.link || "#"}
+                    isDarkMode={isDarkMode}
+                    contentRef={contentRef}
+                    titleRef={titleRef}
+                    descRef={descRef}
+                    linkRef={linkRef}
+                />
             </div>
 
             <ImageModal
                 isOpen={!!selectedImage}
                 onClose={() => setSelectedImage(null)}
-                images={project.images}
+                images={safeImages}
                 initialSlide={selectedIndex}
-                title={project.title}
+                title={project.title || "Project"}
             />
         </>
     );
