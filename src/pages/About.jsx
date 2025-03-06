@@ -40,7 +40,7 @@ const About = () => {
 
         <div className='mt-16 flex flex-wrap gap-12'>
           {skills.map((skill) => (
-            <div className={`block-container w-[5rem] h-20 ${isDarkMode ? 'bg-slate-800' : 'bg-white'}`} key={skill.name}>
+            <div className={`block-container w-[5rem] h-20 ${isDarkMode ? 'bg-slate-800' : 'bg-white'} rounded-xl`} key={skill.name}>
               <div className={`btn-back rounded-xl ${isDarkMode ? 'bg-slate-700' : 'bg-white'}`} />
               <div className={`btn-front rounded-xl flex justify-center items-center ${isDarkMode ? 'bg-slate-800' : 'bg-white'}`}>
                 <img
@@ -85,6 +85,7 @@ const About = () => {
                   borderBottomColor: experience.iconBg,
                   boxShadow: "none",
                   background: isDarkMode ? '#1e293b' : '#ffffff',
+                  borderRadius: '0.5rem',
                 }}
                 contentArrowStyle={{
                   borderRight: isDarkMode ? '7px solid #1e293b' : '7px solid #ffffff'
