@@ -6,6 +6,11 @@ import HorizontalTabs from './HorizontalTabs';
 import VerticalTabs from './VerticalTabs';
 import ProjectGrid from './ProjectGrid';
 import LoadingState from './LoadingState';
+import gsap from 'gsap';
+import { Flip } from 'gsap/Flip';
+
+// Register the Flip plugin
+gsap.registerPlugin(Flip);
 
 const ProjectTabs = () => {
     const [key, setKey] = useState('web');
@@ -15,6 +20,8 @@ const ProjectTabs = () => {
     const [columns, setColumns] = useState(2);
     const [isSticky, setIsSticky] = useState(false);
     const tabsRef = useRef(null);
+    const gridRef = useRef(null);
+    const isAnimating = useRef(false);
 
     const getGridColumns = (cols) => {
         const gridMap = {
@@ -27,7 +34,42 @@ const ProjectTabs = () => {
     };
 
     const handleColumnChange = (col) => {
+        if (isAnimating.current || columns === col) return;
+        isAnimating.current = true;
+
+        // Store the current state before changing layout
+        const state = Flip.getState('.project-card');
+
+        // Update columns state immediately
         setColumns(col);
+
+        // Wait a tiny bit for React to update the DOM with the new column layout
+        setTimeout(() => {
+            // Create the animation with Flip
+            Flip.from(state, {
+                duration: 0.6,
+                ease: "power2.inOut",
+                stagger: {
+                    each: 0.03,
+                    from: "start"
+                },
+                absolutePosition: true, // Ensures accurate positioning
+                onEnter: elements => {
+                    // Animation for new elements appearing
+                    return gsap.fromTo(elements,
+                        { opacity: 0, scale: 0.9 },
+                        { opacity: 1, scale: 1, duration: 0.6 }
+                    );
+                },
+                onLeave: elements => {
+                    // Animation for elements being removed
+                    return gsap.to(elements, { opacity: 0, scale: 0.9, duration: 0.6 });
+                },
+                onComplete: () => {
+                    isAnimating.current = false;
+                }
+            });
+        }, 10);
     };
 
     useEffect(() => {
@@ -75,9 +117,45 @@ const ProjectTabs = () => {
     }, [isSticky]);
 
     const handleTabClick = (tabKey) => {
-        setKey(tabKey);
-        // Scroll to top when tab changes
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (isAnimating.current || key === tabKey) return;
+        isAnimating.current = true;
+
+        // Store the current state before changing content
+        const contentContainer = gridRef.current;
+        const state = Flip.getState(contentContainer.querySelectorAll('.project-card'));
+
+        // First fade out existing content
+        gsap.to(contentContainer.querySelectorAll('.project-card'), {
+            opacity: 0,
+            y: 20,
+            stagger: 0.03,
+            duration: 0.3,
+            onComplete: () => {
+                // Update the active tab
+                setKey(tabKey);
+
+                // Wait for React to update the DOM with new content
+                setTimeout(() => {
+                    // Then animate the new content in
+                    gsap.fromTo(
+                        contentContainer.querySelectorAll('.project-card'),
+                        { opacity: 0, y: -20 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            stagger: 0.05,
+                            duration: 0.5,
+                            ease: "power2.out",
+                            onComplete: () => {
+                                isAnimating.current = false;
+                                // Scroll to top after animation completes
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }
+                        }
+                    );
+                }, 50);
+            }
+        });
     };
 
     if (loading) {
@@ -106,7 +184,7 @@ const ProjectTabs = () => {
                 onTabClick={handleTabClick}
             />
 
-            <div id="projects-content" className="flex-1">
+            <div id="projects-content" className="flex-1" ref={gridRef}>
                 <ProjectGrid
                     projects={projectsData[key]}
                     columns={columns}

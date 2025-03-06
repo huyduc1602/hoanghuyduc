@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { arrow } from "../../assets/icons";
 import { useTheme } from '../../context/ThemeContext';
 
-const ProjectCard = ({ project, onUpdateImages, columns }) => {
+const ProjectCard = ({ project, onUpdateImages, columns, className }) => {
     const { isDarkMode } = useTheme();
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -46,7 +46,13 @@ const ProjectCard = ({ project, onUpdateImages, columns }) => {
 
     return (
         <>
-            <div className={`overflow-hidden shadow-lg hover:shadow-2xl rounded-xl my-4 group ${columns == 1 ? "max-w-full" : "max-w-sm"}`}>
+            <div
+                className={`${className} overflow-hidden rounded-lg shadow-lg hover:shadow-xl ${isDarkMode ? 'bg-gray-800' : 'bg-white'} w-full`}
+                style={{
+                    transition: "transform 0.6s ease, opacity 0.6s ease",
+                    willChange: "transform, opacity"
+                }}
+            >
                 <div className="relative bg-gray-100">
                     <SliderWrapper settings={settings}>
                         {project.images.map((image, index) => (
@@ -73,14 +79,14 @@ const ProjectCard = ({ project, onUpdateImages, columns }) => {
                         ))}
                     </SliderWrapper>
                 </div>
-                <div className="px-6 pb-4">
-                    <div className={`font-bold text-xl my-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+                <div className="px-6 py-4">
+                    <div className={`font-bold text-xl mb-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>
                         {project.title}
                     </div>
                     <p className={`${isDarkMode ? 'text-gray-300' : 'text-black'} text-base`}>
                         {project.description}
                     </p>
-                    <div className="flex items-center space-x-2 mt-2">
+                    <div className="flex items-center space-x-2 mt-4">
                         <Link
                             to={project.link}
                             target='_blank'

@@ -2,9 +2,14 @@ import React from 'react';
 import ProjectCard from './ProjectCard';
 
 const ProjectGrid = ({ projects, columns, getGridColumns }) => (
-    <div className={`grid ${getGridColumns(columns)} gap-4`}>
-        {projects?.map((project) => (
-            <ProjectCard key={project.id} project={project} columns={columns} />
+    <div className={`grid gap-8 ${getGridColumns(columns)} transition-all duration-500`}>
+        {projects.map((project, index) => (
+            <ProjectCard
+                key={`${project.id || index}`}
+                project={project}
+                columns={columns}
+                className="project-card"
+            />
         ))}
     </div>
 );
