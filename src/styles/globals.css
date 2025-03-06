@@ -154,3 +154,30 @@
 									   color-stop(0.72, rgb(73,125,189)),
 									   color-stop(0.86, rgb(28,58,148)));
 }
+/* SplitText styles */
+.char {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  will-change: transform, opacity;
+}
+
+.word-container {
+  display: inline-block;
+  overflow: hidden;
+  margin-right: 8px;
+}
+
+.word {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  will-change: transform, opacity;
+}
+
+/* Make sure the blue gradient still works */
+.blue-gradient_text {
+  background: linear-gradient(90deg, #4ca5ff 2.34%, #b673f8 100.78%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* Override any changes from SplitText */
+  display: inline-block !important;
+}
