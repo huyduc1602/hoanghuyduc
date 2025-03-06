@@ -181,3 +181,212 @@
   /* Override any changes from SplitText */
   display: inline-block !important;
 }
+
+/* 3D Background styles */
+.bg-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  perspective: 1200px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-element {
+  position: absolute;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+.bg-cube {
+  width: 50px;
+  height: 50px;
+  background: rgba(76, 165, 255, 0.05);
+  border: 1px solid rgba(76, 165, 255, 0.1);
+}
+
+.bg-pyramid {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 50px solid rgba(182, 115, 248, 0.05);
+}
+
+.bg-sphere {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.dark .bg-cube {
+  background: rgba(76, 165, 255, 0.05);
+  border: 1px solid rgba(76, 165, 255, 0.15);
+}
+
+.dark .bg-pyramid {
+  border-bottom: 50px solid rgba(182, 115, 248, 0.1);
+}
+
+.dark .bg-sphere {
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+/* Ensure content is readable over background */
+.max-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Word animation styles */
+.word-container {
+  display: inline-block;
+  overflow: hidden;
+  margin-right: 8px;
+}
+
+.word {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  will-change: transform, opacity;
+}
+
+/* 3D Background */
+.background-3d-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  perspective: 1200px;
+  pointer-events: none;
+  z-index: 0;
+  transform-style: preserve-3d;
+}
+
+.bg-element {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+.bg-cube {
+  width: 50px;
+  height: 50px;
+  background: rgba(76, 165, 255, 0.07);
+  border: 1px solid rgba(76, 165, 255, 0.2);
+}
+
+.bg-pyramid {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 50px solid rgba(182, 115, 248, 0.07);
+}
+
+.bg-sphere {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+}
+
+/* Dark mode specific styling */
+.dark .bg-cube {
+  background: rgba(76, 165, 255, 0.07);
+  border: 1px solid rgba(76, 165, 255, 0.2);
+}
+
+.dark .bg-pyramid {
+  border-bottom: 50px solid rgba(182, 115, 248, 0.1);
+}
+
+.dark .bg-sphere {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.07);
+}
+
+/* 3D Background Effects */
+.background-3d-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-element {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  pointer-events: none;
+  backface-visibility: visible;
+}
+
+.bg-cube {
+  background-color: rgba(76, 165, 255, 0.15);
+  border: 1px solid rgba(76, 165, 255, 0.4);
+}
+
+.bg-pyramid {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  background-color: rgba(182, 115, 248, 0.15);
+}
+
+.bg-sphere {
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.25);
+}
+
+/* Ensure content is properly layered above background */
+.relative {
+  position: relative;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+/* Text animation styles */
+.word-container, .char-container {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.word {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  will-change: transform, opacity;
+}
+
+.char {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  will-change: transform, opacity;
+}
+
+/* Blue gradient text */
+.blue-gradient_text {
+  background: linear-gradient(90deg, #4ca5ff 2.34%, #b673f8 100.78%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
