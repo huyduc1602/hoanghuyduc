@@ -1,10 +1,10 @@
 import { HelmetProvider } from 'react-helmet-async';
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { Meta, Layout } from "./components";
-import { About, Contact, Home, Projects, NotFound, OAuth2Callback, TermsOfService } from "./pages";
+import { Meta, Layout } from "@/components";
+import { About, Contact, Home, Projects, NotFound, OAuth2Callback, TermsOfService } from "@/pages";
 import ChatPage from './pages/ChatPage';
-import { ThemeProvider } from './context/ThemeContext';
-import { LanguageProvider } from './context/LanguageContext';
+import { ThemeProvider } from '@/context/ThemeContext';
+import { LanguageProvider } from '@/context/LanguageContext';
 
 const App = () => {
   return (

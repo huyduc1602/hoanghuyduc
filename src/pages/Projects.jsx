@@ -1,10 +1,9 @@
 import { useEffect, useRef } from "react";
-import { CTA, ProjectTabs } from "../components";
-import { Meta } from "../components";
+import { CTA, Meta, BackgroundEffect3D } from "@/components";
+import ProjectTabs from "@/components/projects/ProjectTabs";
+import TextAnimation from "@/components/animations/TextAnimation";
 import gsap from "gsap";
-import { useTheme } from '../context/ThemeContext';
-import BackgroundEffect3D from '../components/BackgroundEffect3D';
-import TextAnimation from '../components/TextAnimation';
+import { useTheme } from '@/context/ThemeContext';
 
 const Projects = () => {
   const { isDarkMode } = useTheme();

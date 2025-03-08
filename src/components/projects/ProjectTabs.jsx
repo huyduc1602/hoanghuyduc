@@ -1,15 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { getProjectsData } from '../../utils/googleSheets';
+import { getProjectsData } from '@utils/googleSheets';
 import GridControls from './GridControls';
 import HorizontalTabs from './HorizontalTabs';
 import VerticalTabs from './VerticalTabs';
 import ProjectGrid from './ProjectGrid';
 import LoadingState from './LoadingState';
-
-// Import the animation hooks
-import useGridAnimation from '../../animations/useGridAnimation';
-import useTabAnimation from '../../animations/useTabAnimation';
-import useStickyScroll from '../../animations/useStickyScroll';
+import useGridAnimation from '@animations/useGridAnimation';
+import useTabAnimation from '@animations/useTabAnimation';
+import useStickyScroll from '@animations/useStickyScroll';
 
 const ProjectTabs = () => {
     // State management

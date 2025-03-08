@@ -1,7 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { Navbar, Footer, Chatbot } from './';
-import DarkModeWithLight from './DarkModeWithLight';
+import { Navbar, Footer } from '@components';
+import Chatbot from '@components/chat/Chatbot';
+import DarkModeWithLight from '@components/DarkModeWithLight';
 
 const Layout = ({ children }) => {
     const location = useLocation();

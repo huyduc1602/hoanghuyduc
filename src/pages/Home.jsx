@@ -1,11 +1,11 @@
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect, useRef, useState } from "react";
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from "@/context/ThemeContext";
 
-import sakura from "../assets/sakura.mp3";
-import { HomeInfo, Loader, Meta } from "../components";
-import { soundoff, soundon } from "../assets/icons";
-import { Bird, Island, Plane, Sky } from "../models";
+import sakura from "@/assets/sakura.mp3";
+import { HomeInfo, Loader, Meta } from "@/components";
+import { soundoff, soundon } from "@/assets/icons";
+import { Bird, Island, Plane, Sky } from "@/models";
 
 const Home = () => {
   const audioRef = useRef(new Audio(sakura));

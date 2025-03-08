@@ -1,17 +1,8 @@
-import Home from "./Home";
-import About from './About'
-import Projects from "./Projects";
-import Contact from "./Contact";
-import NotFound from "./NotFound";
-import TermsOfService from "./TermsOfService";
-import OAuth2Callback from "./OAuth2Callback";
-
-export {
-    Home,
-    About,
-    Projects,
-    Contact,
-    NotFound,
-    TermsOfService,
-    OAuth2Callback
-}
+// Page exports
+export { default as About } from './About';
+export { default as Home } from './Home';
+export { default as Projects } from './Projects';
+export { default as Contact } from './Contact';
+export { default as NotFound } from './NotFound';
+export { default as OAuth2Callback } from './OAuth2Callback';
+export { default as TermsOfService } from './TermsOfService';
