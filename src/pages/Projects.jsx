@@ -26,7 +26,6 @@ const Projects = () => {
 
   return (
     <section className='max-container relative'>
-      {/* The BackgroundEffect3D component */}
       <BackgroundEffect3D isDarkMode={isDarkMode} numElements={25} />
 
       <div className="relative z-10">
@@ -37,7 +36,6 @@ const Projects = () => {
           image="/projects-preview.png"
         />
 
-        {/* Using the new TextAnimation component */}
         <TextAnimation
           text="My Projects"
           className={`head-text ${isDarkMode ? 'text-white' : 'text-black'}`}
