@@ -122,7 +122,7 @@ const Home = () => {
             src={!isPlayingMusic ? soundoff : soundon}
             alt='jukebox'
             onClick={() => setIsPlayingMusic(!isPlayingMusic)}
-            className='cursor-pointer object-contain'
+            className='w-auto h-10 cursor-pointer object-contain'
           />
         </div>
       </section>
