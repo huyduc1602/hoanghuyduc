@@ -219,19 +219,14 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
         setInput("");
     };
 
-    // Add function to handle opening in new window
+    
+    /**
+     * Open a new window and redirect to /chat,
+     * then set the popup window and close the floating chat window.
+     */
     const handleOpenInNewWindow = () => {
-        const width = 400;
-        const height = 600;
-        const left = window.screen.width / 2 - width / 2;
-        const top = window.screen.height / 2 - height / 2;
-
-        const popup = window.open(
-            '/chat',
-            'ChatWindow',
-            `width=${width},height=${height},left=${left},top=${top}`
-        );
-        setPopupWindow(popup);
+        const newTab = window.open('/chat');
+        setPopupWindow(newTab);
         setIsOpen(false);
     };
 
