@@ -176,7 +176,7 @@ export const experiences = [
         company_name: "IDS Vietnam",
         icon: ids,
         iconBg: "#a2d2ff",
-        date: "August 2022 - February 2024",
+        date: "August 2022 - February 2025",
         points: [
             "Developing and maintaining web applications using React.js and other related technologies.",
             "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
@@ -184,18 +184,18 @@ export const experiences = [
             "App development with React Native"
         ],
     },
-    {
-        title: "PHP Developer",
-        company_name: "Groot",
-        icon: groot,
-        iconBg: "#a2b4ff ",
-        date: "April 2022 - October 2024",
-        points: [
-            "Developing and maintaining web applications using PHP and other related technologies.",
-            "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-            "Implementing responsive design and ensuring cross-browser compatibility.",
-        ],
-    },
+    // {
+    //     title: "PHP Developer",
+    //     company_name: "Groot",
+    //     icon: groot,
+    //     iconBg: "#a2b4ff ",
+    //     date: "April 2022 - October 2024",
+    //     points: [
+    //         "Developing and maintaining web applications using PHP and other related technologies.",
+    //         "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
+    //         "Implementing responsive design and ensuring cross-browser compatibility.",
+    //     ],
+    // },
 ];
 
 export const socialLinks = [
