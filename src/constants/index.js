@@ -134,24 +134,24 @@ export const skills = [
 ];
 
 export const experiences = [
-    {
-        title: "Web Developer",
-        company_name: "ECP",
-        icon: ecp,
-        iconBg: "#accbe1",
-        date: "June 2020 - November 2020",
-        points: [
-            "Programming websites with PHP language and create landing pages",
-            "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-            "Implementing responsive design and ensuring cross-browser compatibility.",
-        ],
-    },
+    // {
+    //     title: "Web Developer",
+    //     company_name: "ECP",
+    //     icon: ecp,
+    //     iconBg: "#accbe1",
+    //     date: "June 2020 - November 2020",
+    //     points: [
+    //         "Programming websites with PHP language and create landing pages",
+    //         "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
+    //         "Implementing responsive design and ensuring cross-browser compatibility.",
+    //     ],
+    // },
     {
         title: "Web Developer",
         company_name: "TSG-SOFT365",
         icon: tsg,
         iconBg: "#fbc3bc",
-        date: "November 2020 - May 2021",
+        date: "June 2020 - May 2021",
         points: [
             "Developing and maintaining web applications using PHP and other related technologies.",
             "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
