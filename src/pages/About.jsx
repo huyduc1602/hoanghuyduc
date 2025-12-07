@@ -54,7 +54,7 @@ const About = () => {
         </div>
       </div>
 
-      <div className='py-16'>
+      {/* <div className='py-16'>
         <h3 className={`subhead-text ${isDarkMode ? 'text-white' : 'text-black'}`}>Work Experience.</h3>
         <div className={`mt-5 flex flex-col gap-3 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>
           <p>
@@ -117,7 +117,7 @@ const About = () => {
             ))}
           </VerticalTimeline>
         </div>
-      </div>
+      </div> */}
 
       <hr className={isDarkMode ? 'border-slate-700' : 'border-slate-200'} />
 
