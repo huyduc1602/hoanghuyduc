@@ -129,7 +129,7 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
                     'Content-Type': 'application/json'
                 },
                 data: {
-                    model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
+                    model: 'meta-llama/Llama-3.1-8B-Instruct',
                     messages: [
                         {
                             role: 'system',
