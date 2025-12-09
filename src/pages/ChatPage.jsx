@@ -1,67 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Container, Paper } from '@mui/material';
+import React from 'react';
+import { Box } from '@mui/material';
 import { Meta } from '../components';
 import ChatHeader from '../components/chat/ChatHeader';
 import MessageList from '../components/chat/MessageList';
 import MessageInput from '../components/chat/MessageInput';
 import ChatSuggestions from '../components/chat/ChatSuggestions';
-import { useLanguage } from '../context/LanguageContext';
-import { websiteQATranslations } from '../data/websiteQATranslations';
 import { useTheme } from '../context/ThemeContext';
+import useChatbot from '../hooks/useChatbot';
 
 const ChatPage = () => {
-    const [messages, setMessages] = useState([]);
-    const [input, setInput] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const { currentLanguage } = useLanguage();
-    const qaContent = websiteQATranslations[currentLanguage] || websiteQATranslations.en;
     const { isDarkMode } = useTheme();
-
-    useEffect(() => {
-        const savedMessages = localStorage.getItem('chatMessages');
-        if (savedMessages) {
-            setMessages(JSON.parse(savedMessages));
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem('chatMessages', JSON.stringify(messages));
-    }, [messages]);
-
-    const handleSuggestionClick = (question) => {
-        const selectedCategory = Object.keys(qaContent).find(category =>
-            qaContent[category].some(item => item.q === question)
-        );
-
-        const answer = qaContent[selectedCategory].find(item => item.q === question)?.a;
-
-        if (answer) {
-            setMessages(prev => [...prev,
-            { role: 'user', content: question },
-            { role: 'assistant', content: answer }
-            ]);
-            // Don't reset selectedCategory here
-        }
-    };
-
-    const handleSendMessage = () => {
-        if (!input.trim()) return;
-
-        setMessages(prev => [...prev, { role: 'user', content: input }]);
-        setInput('');
-        setIsLoading(true);
-
-        // Add your message handling logic here
-        // When done, set isLoading to false
-    };
-
-    const handleKeyPress = (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            handleSendMessage();
-        }
-    };
+    
+    const {
+        messages,
+        input,
+        isLoading,
+        selectedCategory,
+        qaContent,
+        setInput,
+        setSelectedCategory,
+        sendMessage,
+        handleSuggestionClick,
+        handleKeyPress
+    } = useChatbot();
 
     return (
         <section className='max-container'>
@@ -109,7 +70,7 @@ const ChatPage = () => {
                     <MessageInput
                         input={input}
                         onChange={(e) => setInput(e.target.value)}
-                        onSend={handleSendMessage}
+                        onSend={() => sendMessage()}
                         onKeyPress={handleKeyPress}
                         isLoading={isLoading}
                         fullWidth={true}

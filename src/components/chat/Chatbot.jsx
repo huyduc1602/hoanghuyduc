@@ -1,65 +1,41 @@
 import * as React from 'react';
-import { useState, useRef, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
 import {
     Box,
-    TextField,
-    Button,
-    Typography,
     Paper,
-    List,
-    ListItem,
-    ListItemText,
     Fab,
     Zoom,
-    IconButton,
-    Badge,
-    CircularProgress,
-    Chip,
-    Stack,
-    Tooltip,
-    Collapse
+    Badge
 } from "@mui/material";
 import ChatIcon from '@mui/icons-material/Chat';
-import CloseIcon from '@mui/icons-material/Close';
-import SendIcon from '@mui/icons-material/Send';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { websiteQA } from '../../data/chatbotQA';
-import { websiteQATranslations } from '../../data/websiteQATranslations';
 import ChatHeader from './ChatHeader';
 import MessageList from './MessageList';
 import MessageInput from './MessageInput';
 import ChatSuggestions from './ChatSuggestions';
 import ChatbotLabel from './ChatbotLabel';
-import { useLanguage, languages } from '../../context/LanguageContext';
+import useChatbot from '../../hooks/useChatbot';
 
 const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = false }) => {
-    const { currentLanguage } = useLanguage(); // Get current language from useLanguage hook
+    const {
+        messages,
+        input,
+        isLoading,
+        selectedCategory,
+        qaContent,
+        messagesEndRef,
+        setInput,
+        setSelectedCategory,
+        sendMessage,
+        handleSuggestionClick,
+        handleKeyPress,
+        handleNewChat,
+        scrollToBottom
+    } = useChatbot();
 
-    // Update messages state to use localStorage
-    const [messages, setMessages] = useState(() => {
-        const savedMessages = localStorage.getItem('chatMessages');
-        return savedMessages ? JSON.parse(savedMessages) : [];
-    });
-
-    // Save messages to localStorage whenever they change
-    useEffect(() => {
-        localStorage.setItem('chatMessages', JSON.stringify(messages));
-    }, [messages]);
-
-    const [input, setInput] = useState("");
     const [isOpen, setIsOpen] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
     const [hasNewMessage, setHasNewMessage] = useState(false);
     const [hasUnreadMessages, setHasUnreadMessages] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const [popupWindow, setPopupWindow] = useState(null); // Add state for popup window
-    const messagesEndRef = useRef(null);
-
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    };
+    const [popupWindow, setPopupWindow] = useState(null);
 
     useEffect(() => {
         if (isOpen) {
@@ -73,152 +49,7 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
                 setHasUnreadMessages(true);
             }
         }
-    }, [messages, isOpen]);
-
-    // Add this function to handle suggestion clicks
-    const handleSuggestionClick = (question) => {
-        const selectedCategory = Object.keys(qaContent).find(category =>
-            qaContent[category].some(item => item.q === question)
-        );
-
-        const answer = qaContent[selectedCategory].find(item => item.q === question)?.a;
-
-        if (answer) {
-            setMessages(prev => [...prev,
-            { role: 'user', content: question },
-            { role: 'assistant', content: answer }
-            ]);
-        }
-    };
-
-    const sendMessage = async (messageText = input) => {
-        if (!messageText.trim()) return;
-
-        const userMessage = messageText.trim();
-        const newMessages = [...messages, { role: "user", content: userMessage }];
-        setMessages(newMessages);
-        setInput("");
-        setIsLoading(true);
-
-        // Add language instruction to the prompt
-        const languageInstruction = currentLanguage !== 'en'
-            ? `Please respond in ${languages[currentLanguage].name}. `
-            : '';
-
-        // Check for predefined answers first
-        const predefinedAnswer = Object.values(websiteQA)
-            .flat()
-            .find(qa => qa.q.toLowerCase() === userMessage.toLowerCase())?.a;
-
-        if (predefinedAnswer) {
-            setMessages(prev => [...prev, {
-                role: "assistant",
-                content: predefinedAnswer
-            }]);
-            setIsLoading(false);
-            return;
-        }
-
-        try {
-            // Using the new Hugging Face Inference Providers API (OpenAI-compatible)
-            const response = await axios({
-                method: 'post',
-                url: 'https://router.huggingface.co/v1/chat/completions',
-                headers: {
-                    'Authorization': `Bearer ${import.meta.env.VITE_HUGGINGFACE_API_KEY}`,
-                    'Content-Type': 'application/json'
-                },
-                data: {
-                    model: 'meta-llama/Llama-3.1-8B-Instruct',
-                    messages: [
-                        {
-                            role: 'system',
-                            content: languageInstruction || 'You are a helpful assistant.'
-                        },
-                        ...newMessages.map(msg => ({
-                            role: msg.role,
-                            content: msg.content
-                        }))
-                    ],
-                    max_tokens: 1024,
-                    temperature: 0.7,
-                    top_p: 0.9,
-                    stream: false
-                }
-            });
-
-            if (response.data?.choices?.[0]?.message?.content) {
-                const botResponse = response.data.choices[0].message.content.trim();
-                setMessages(prev => [...prev, {
-                    role: "assistant",
-                    content: botResponse
-                }]);
-            } else if (response.data?.error?.includes('loading')) {
-                // Handle model loading state
-                const loadingMessage = detectLanguageAndGetErrorMessage(userMessage, 'loading');
-                setMessages(prev => [...prev, {
-                    role: "assistant",
-                    content: loadingMessage
-                }]);
-
-                // Retry after a delay
-                setTimeout(() => sendMessage(messageText), 20000);
-            } else {
-                throw new Error('Invalid response format');
-            }
-        } catch (error) {
-            console.error("API Error:", error.response?.data || error);
-            const errorMessage = detectLanguageAndGetErrorMessage(userMessage, 'error');
-            setMessages(prev => [...prev, {
-                role: "assistant",
-                content: errorMessage
-            }]);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    // Helper function to detect language and return appropriate error message
-    const detectLanguageAndGetErrorMessage = (text, type = 'error') => {
-        const messages = {
-            loading: {
-                zh: "模型正在加载中，请稍候（约20秒）...",
-                ja: "モデルを読み込んでいます。少々お待ちください（約20秒）...",
-                th: "กำลังโหลดโมเดล กรุณารอสักครู่ (ประมาณ 20 วินาที)...",
-                vi: "Đang tải mô hình, vui lòng đợi (khoảng 20 giây)...",
-                en: "Loading the model, please wait (about 20 seconds)..."
-            },
-            error: {
-                zh: "抱歉，系统暂时出现问题。请稍后再试。",
-                ja: "申し訳ありません。システムに問題が発生しました。",
-                th: "ขออภัย ระบบมีปัญหา โปรดลองอีกครั้งในภายหลัง",
-                vi: "Xin lỗi, hệ thống đang gặp sự cố. Vui lòng thử lại sau.",
-                en: "Sorry, the system is experiencing issues. Please try again later."
-            }
-        };
-
-        // Detect language
-        const lang = /[\u4e00-\u9fff]/.test(text) ? 'zh'
-            : /[\u3040-\u30ff]/.test(text) ? 'ja'
-                : /[\u0E00-\u0E7F]/.test(text) ? 'th'
-                    : /[ạàáảãâậầấẩẫăặằắẳẵèéẻẽêệềếểễìíỉĩòóỏõôộồốổỗơớờởỡùúủũưựừứửữỳýỷỹđ]/.test(text) ? 'vi'
-                        : 'en';
-
-        return messages[type][lang];
-    };
-
-    const handleKeyPress = (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage();
-        }
-    };
-
-    const handleNewChat = () => {
-        setMessages([]);
-        setSelectedCategory(null);
-        setInput("");
-    };
+    }, [messages, isOpen, scrollToBottom]);
 
     
     /**
@@ -235,9 +66,6 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
     if (hideFloating && !isStandalone) {
         return null;
     }
-
-    // Get translated content based on current language
-    const qaContent = websiteQATranslations[currentLanguage] || websiteQATranslations.en;
 
     if (isStandalone) {
         return (
