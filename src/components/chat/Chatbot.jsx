@@ -120,38 +120,39 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
         }
 
         try {
+            // Using the new Hugging Face Inference Providers API (OpenAI-compatible)
             const response = await axios({
                 method: 'post',
-                url: 'https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1',
+                url: 'https://router.huggingface.co/v1/chat/completions',
                 headers: {
                     'Authorization': `Bearer ${import.meta.env.VITE_HUGGINGFACE_API_KEY}`,
                     'Content-Type': 'application/json'
                 },
                 data: {
-                    inputs: `<s>[INST] ${languageInstruction}${userMessage} [/INST]`,
-                    parameters: {
-                        max_new_tokens: 1024,
-                        temperature: 0.7,
-                        top_p: 0.9,
-                        do_sample: true,
-                        return_full_text: false
-                    }
+                    model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
+                    messages: [
+                        {
+                            role: 'system',
+                            content: languageInstruction || 'You are a helpful assistant.'
+                        },
+                        ...newMessages.map(msg => ({
+                            role: msg.role,
+                            content: msg.content
+                        }))
+                    ],
+                    max_tokens: 1024,
+                    temperature: 0.7,
+                    top_p: 0.9,
+                    stream: false
                 }
             });
 
-            if (response.data && Array.isArray(response.data)) {
-                const botResponse = response.data[0]?.generated_text
-                    ?.replace(/^<s>\[INST\].*\[\/INST\]\s*/g, '') // Remove instruction prefix
-                    ?.trim();
-
-                if (botResponse) {
-                    setMessages(prev => [...prev, {
-                        role: "assistant",
-                        content: botResponse
-                    }]);
-                } else {
-                    throw new Error('No response generated');
-                }
+            if (response.data?.choices?.[0]?.message?.content) {
+                const botResponse = response.data.choices[0].message.content.trim();
+                setMessages(prev => [...prev, {
+                    role: "assistant",
+                    content: botResponse
+                }]);
             } else if (response.data?.error?.includes('loading')) {
                 // Handle model loading state
                 const loadingMessage = detectLanguageAndGetErrorMessage(userMessage, 'loading');
@@ -161,7 +162,7 @@ const Chatbot = ({ isStandalone = false, fullScreen = false, hideFloating = fals
                 }]);
 
                 // Retry after a delay
-                setTimeout(sendMessage, 20000);
+                setTimeout(() => sendMessage(messageText), 20000);
             } else {
                 throw new Error('Invalid response format');
             }
